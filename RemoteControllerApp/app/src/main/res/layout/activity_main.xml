@@ -11,10 +11,9 @@
         android:id="@+id/form_layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="11dp">
+        android:layout_alignParentStart="true">
 
         <Spinner
             android:id="@+id/spinner"
@@ -32,6 +31,8 @@
             android:textOff=""
             android:textOn=""
             android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_marginRight="36dp"
             android:layout_marginEnd="36dp" />
 
@@ -81,7 +82,7 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/ic_arrow_downward_black_24dp"
-            android:layout_below="@+id/movefieldforward"
+            android:layout_alignTop="@+id/zdown"
             android:layout_alignLeft="@+id/movefieldforward"
             android:layout_alignStart="@+id/movefieldforward" />
 
@@ -92,8 +93,38 @@
             android:src="@drawable/ic_arrow_upward_black_24dp"
             android:layout_below="@+id/movefieldbackward"
             android:layout_alignLeft="@+id/movefieldbackward"
-            android:layout_alignStart="@+id/movefieldbackward" />
+            android:layout_alignStart="@+id/movefieldbackward"
+            android:layout_marginTop="12dp" />
+
+        <Switch
+            android:id="@+id/switch0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="21dp"
+            android:text="Led"
+            android:layout_below="@+id/zdown"
+            android:layout_alignLeft="@+id/zdown"
+            android:layout_alignStart="@+id/zdown" />
+
+        <SeekBar
+            android:id="@+id/seekBar0"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/textView0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="71dp"
+        android:layout_marginStart="71dp"
+        android:text="Pasos:" />
 
 </RelativeLayout>

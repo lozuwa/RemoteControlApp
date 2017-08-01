@@ -19,6 +19,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -39,10 +40,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MqttCallback, SeekBar.OnSeekBarChangeListener, AdapterView.OnItemSelectedListener {
 
-    public ImageButton yforward;
-    public ImageButton ybackward;
-    public ImageButton xleft;
-    public ImageButton xright;
+    /** Attributes */
+    /** UI components */
     public ImageButton zup;
     public ImageButton zdown;
     public ImageButton picButton;
@@ -50,46 +49,51 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     public ImageButton MoveFieldForward;
     public ImageButton MoveFieldBackward;
     public ToggleButton connection;
-    public ToggleButton automaticButton;
     public SeekBar seekBar0;
-    public SeekBar seekBar1;
-    public SeekBar seekBar3;
-    public TextView textView;
-    public TextView textView1;
-    public TextView textView3;
+    public TextView textView0;
     public Spinner spinner;
+    public Switch switch0;
+
+    /** variables*/
     public String selected_field = "Nothing";
 
+    /** mqtt client */
     public MqttAndroidClient client;
     public MqttConnectOptions options;
 
-    /**********************************MQTT***************************************************/
+    /** Constants */
+    public static final String TEST_BROKER = "tcp://test.mosquitto.org:1883";
+    public static final String BROKER = "tcp://192.168.3.174";
 
+    public static final String CONNECTION_TOPIC = "/connect";
+    public static final String Z_UP = "/zu";
+    public static final String Z_DOWN = "/zd";
+    public static final String MICROSCOPE = "/microscope";
+    public static final String HOME = "/home";
+
+    /** Debug tag */
     private static final String TAG = "MainActivity";
 
+    /** Constructor */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        /** Build mqtt client and start connection */
         options = new MqttConnectOptions();
         options.setMqttVersion( 4 );
         options.setKeepAliveInterval( 300 );
         options.setCleanSession( false );
 
         String clientId = MqttClient.generateClientId();
-        client = new MqttAndroidClient(this.getApplicationContext(), "tcp://192.168.3.174", clientId);
-
-        //tcp://test.mosquitto.org:1883
-        //tcp://test.mosquitto.org:1883
-        //tcp://10.42.0.1
-
+        client = new MqttAndroidClient(this.getApplicationContext(), TEST_BROKER, clientId);
+        //connectMQTT();
         try {
             IMqttToken token = client.connect(options);
             token.setActionCallback(new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    // We are connected
                     Log.d(TAG, "onSuccess");
                     Toast.makeText(MainActivity.this, "Connection successful", Toast.LENGTH_SHORT).show();
                     client.setCallback(MainActivity.this);
@@ -100,13 +104,9 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                         subToken.setActionCallback(new IMqttActionListener() {
                             @Override
                             public void onSuccess(IMqttToken asyncActionToken){
-                                //Toast.makeText(MainActivity.this, "Successfully subscribed to: " + topic, Toast.LENGTH_SHORT).show();
                             }
-
                             @Override
-                            public void onFailure(IMqttToken asyncActionToken,
-                                                  Throwable exception) {
-                                Toast.makeText(MainActivity.this, "Couldn't subscribe to: " + topic, Toast.LENGTH_SHORT).show();
+                            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
                             }
                         });
                     } catch (MqttException e) {
@@ -126,10 +126,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             e.printStackTrace();
         }
 
-        yforward = (ImageButton)findViewById(R.id.yforward);
-        ybackward = (ImageButton)findViewById(R.id.ybackward);
-        xleft = (ImageButton)findViewById(R.id.xleft);
-        xright = (ImageButton)findViewById(R.id.xright);
+        /** Instantiate UI components and bind to xml */
         zup = (ImageButton)findViewById(R.id.zup);
         zdown = (ImageButton)findViewById(R.id.zdown);
         picButton = (ImageButton) findViewById(R.id.picButton);
@@ -139,23 +136,12 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         MoveFieldBackward = (ImageButton) findViewById(R.id.movefieldbackward);
 
         connection = (ToggleButton) findViewById(R.id.connection);
-        automaticButton = (ToggleButton) findViewById(R.id.automaticButton);
 
         seekBar0 = (SeekBar) findViewById(R.id.seekBar0);
         seekBar0.setProgress(1);
         seekBar0.setOnSeekBarChangeListener(this);
 
-        seekBar1 = (SeekBar) findViewById(R.id.seekBar1);
-        seekBar1.setProgress(50);
-        seekBar1.setOnSeekBarChangeListener(this);
-
-        seekBar3 = (SeekBar) findViewById(R.id.seekBar3);
-        seekBar3.setProgress(1);
-        seekBar3.setOnSeekBarChangeListener(this);
-
-        textView = (TextView) findViewById(R.id.textView);
-        textView1 = (TextView) findViewById(R.id.textView1);
-        textView3 = (TextView) findViewById(R.id.textView3);
+        textView0 = (TextView) findViewById(R.id.textView0);
 
         spinner  = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(this);
@@ -163,147 +149,76 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
 
-        textView.setText("Intensidad led: " + "1" + "%");
-        textView1.setText("Tiempos: " + String.valueOf( 500 ) + " us");
-        textView3.setText("Zoom (aumentos): " + "1");
+        switch0 = (Switch) findViewById(R.id.switch0);
 
-        yforward.setBackgroundColor(Color.GREEN);
-        ybackward.setBackgroundColor(Color.GREEN);
-        xright.setBackgroundColor(Color.GREEN);
-        xleft.setBackgroundColor(Color.GREEN);
-        zup.setBackgroundColor(Color.GREEN);
-        zdown.setBackgroundColor(Color.GREEN);
+        /** Configure initial parameters of UI components */
+        zup.setBackgroundColor(Color.BLUE);
+        zdown.setBackgroundColor(Color.BLUE);
+        MoveFieldBackward.setBackgroundColor(Color.BLUE);
+        MoveFieldForward.setBackgroundColor(Color.BLUE);
 
         connection.setChecked(false);
-        automaticButton.setChecked(true);
 
         connection.setEnabled(true);
-        automaticButton.setEnabled(false);
-        homeButton.setEnabled(false);
-        yforward.setEnabled(false);
-        ybackward.setEnabled(false);
-        xleft.setEnabled(false);
-        xright.setEnabled(false);
         zup.setEnabled(false);
         zdown.setEnabled(false);
+        homeButton.setEnabled(false);
         picButton.setEnabled(false);
         MoveFieldForward.setEnabled(false);
         MoveFieldBackward.setEnabled(false);
         spinner.setEnabled(false);
         seekBar0.setEnabled(false);
-        seekBar1.setEnabled(false);
-        seekBar3.setEnabled(false);
+        switch0.setEnabled(false);
 
+        /** UI components' callback functions */
         connection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    yforward.setEnabled(true);
-                    ybackward.setEnabled(true);
-                    xleft.setEnabled(true);
-                    xright.setEnabled(true);
+                    /** Change state*/
+                    seekBar0.setEnabled(true);
                     zup.setEnabled(true);
                     zdown.setEnabled(true);
-                    picButton.setEnabled(true);
                     spinner.setEnabled(true);
-                    seekBar0.setEnabled(true);
-                    seekBar1.setEnabled(true);
-                    seekBar3.setEnabled(true);
+                    picButton.setEnabled(true);
                     homeButton.setEnabled(true);
                     MoveFieldForward.setEnabled(true);
                     MoveFieldBackward.setEnabled(true);
-                    automaticButton.setEnabled(true);
+                    switch0.setEnabled(true);
+
+                    /** Send message to activate connection */
                     String topic = "/connect";
                     String payload = "1";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    yforward.setEnabled(false);
-                    ybackward.setEnabled(false);
-                    xleft.setEnabled(false);
-                    xright.setEnabled(false);
+                    publish_message(topic, payload);
+                }
+                else {
+                    /** Change state */
                     zup.setEnabled(false);
                     zdown.setEnabled(false);
                     picButton.setEnabled(false);
                     spinner.setEnabled(false);
                     seekBar0.setEnabled(false);
-                    seekBar1.setEnabled(false);
-                    seekBar3.setEnabled(false);
                     homeButton.setEnabled(false);
                     MoveFieldForward.setEnabled(false);
                     MoveFieldBackward.setEnabled(false);
-                    automaticButton.setEnabled(false);
+
+                    /** Send message to deactivate connection */
                     String topic = "/connect";
                     String payload = "2";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
+                    publish_message(topic, payload);
                 }
             }
         });
-
-        automaticButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    String topic = "/automatic";
-                    String payload = "1";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-                }
-                else{
-                    String topic = "/automatic";
-                    String payload = "0";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
 
         picButton.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v){
                 if ( check_field(selected_field) ) {
                     String topic = "/microscope";
                     String payload = "pic;" + selected_field;
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
+                    publish_message(topic, payload);
                     //MoveField();
                 }
                 else{
-                    Toast.makeText(MainActivity.this, "Nombre no es permitido", Toast.LENGTH_SHORT).show();
+                    showToast("Nombre no permitido");
                 }
             }
         });
@@ -312,152 +227,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             public void onClick(View v){
                 String topic = "/home";
                 String payload = "1";
-                byte[] encodedPayload = new byte[0];
-                try {
-                    encodedPayload = payload.getBytes("UTF-8");
-                    MqttMessage message = new MqttMessage(encodedPayload);
-                    message.setRetained(false);
-                    client.publish(topic, message);
-                } catch (UnsupportedEncodingException | MqttException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        yforward.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    yforward.setBackgroundColor(Color.CYAN);
-                    String topic = "/yf";
-                    String payload = "1";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                    yforward.setBackgroundColor(Color.GREEN);
-                    String topic = "/yf";
-                    String payload = "2";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-                return true;
-            }
-        });
-
-        ybackward.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    ybackward.setBackgroundColor(Color.CYAN);
-                    String topic = "/yb";
-                    String payload = "1";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                    ybackward.setBackgroundColor(Color.GREEN);
-                    String topic = "/yb";
-                    String payload = "2";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-                }
-                return true;
-            }
-        });
-
-        xleft.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    xleft.setBackgroundColor(Color.CYAN);
-                    String topic = "/xl";
-                    String payload = "1";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                    xleft.setBackgroundColor(Color.GREEN);
-                    String topic = "/xl";
-                    String payload = "2";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-                }
-                return true;
-            }
-        });
-
-        xright.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    xright.setBackgroundColor(Color.CYAN);
-                    String topic = "/xr";
-                    String payload = "1";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                    xright.setBackgroundColor(Color.GREEN);
-                    String topic = "/xr";
-                    String payload = "2";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-                }
-                return true;
+                publish_message(topic, payload);
             }
         });
 
@@ -465,31 +235,15 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    zup.setBackgroundColor(Color.CYAN);
-                    String topic = "/zu";
-                    String payload = "1";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     zup.setBackgroundColor(Color.GREEN);
                     String topic = "/zu";
+                    String payload = "1";
+                    publish_message(topic, payload);
+                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    zup.setBackgroundColor(Color.BLUE);
+                    String topic = "/zu";
                     String payload = "2";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
+                    publish_message(topic, payload);
                 }
                 return true;
             }
@@ -499,31 +253,15 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    zdown.setBackgroundColor(Color.CYAN);
-                    String topic = "/zd";
-                    String payload = "1";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
-                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     zdown.setBackgroundColor(Color.GREEN);
                     String topic = "/zd";
+                    String payload = "1";
+                    publish_message(topic, payload);
+                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    zdown.setBackgroundColor(Color.BLUE);
+                    String topic = "/zd";
                     String payload = "2";
-                    byte[] encodedPayload = new byte[0];
-                    try {
-                        encodedPayload = payload.getBytes("UTF-8");
-                        MqttMessage message = new MqttMessage(encodedPayload);
-                        message.setRetained(false);
-                        client.publish(topic, message);
-                    } catch (UnsupportedEncodingException | MqttException e) {
-                        e.printStackTrace();
-                    }
+                    publish_message(topic, payload);
                 }
                 return true;
             }
@@ -533,9 +271,10 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    MoveFieldForward.setBackgroundColor(Color.GREEN);
                     MoveField(1);
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-
+                    MoveFieldForward.setBackgroundColor(Color.BLUE);
                 }
                 return true;
             }
@@ -545,15 +284,14 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    MoveFieldBackward.setBackgroundColor(Color.GREEN);
                     MoveField(0);
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-
+                    MoveFieldBackward.setBackgroundColor(Color.BLUE);
                 }
                 return true;
             }
         });
-
-
     }
 
     /********************************Callbacks class*********************************************/
@@ -588,22 +326,18 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     }
     /********************************************************************************************/
 
-    /*************************************MQTT Callback*************************************************/
+    /*************************************MQTT Callbacks*************************************************/
     @Override
     public void connectionLost(Throwable cause) {
-        Toast.makeText(MainActivity.this, cause.toString(), Toast.LENGTH_SHORT).show();
-        if (!client.isConnected()){
-            try {
-                client.connect(options);
-            } catch (MqttException e) {
-                e.printStackTrace();
-            }
+        showToast("Client disconneted because: " + cause.toString());
+        if (!client.isConnected()) {
+            connectMQTT();
         }
     }
 
     @Override
     public void messageArrived(String topic, MqttMessage message) throws Exception {
-        Toast.makeText(MainActivity.this, "Topic: "+topic+"\nMessage: "+message.toString(), Toast.LENGTH_LONG).show();
+        showToast("Topic: " + topic + " Message: " + message.toString());
     }
 
     @Override
@@ -611,105 +345,37 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     }
     /********************************************************************************************/
 
-    /*************************************Seekbar*************************************************/
+    /*************************************Seekbar Callbacks*************************************************/
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-        //Toast.makeText(getApplicationContext(),"Brightness: "+progress, Toast.LENGTH_SHORT).show();
-
+    public void onStartTrackingTouch(SeekBar seekBar) {
         if (seekBar.equals(seekBar0)){
 
+        }
+        else{
+
+        }
+    }
+
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        if (seekBar.equals(seekBar0)){
             if (progress == 0){
                 progress = 1;
                 seekBar0.setProgress(1);
             }
-
-            String topic = "/led";
-            String payload = String.valueOf(progress);
-            byte[] encodedPayload = new byte[0];
-            try {
-                textView.setText("Intensidad led: " + (progress) + "%");
-                encodedPayload = payload.getBytes("UTF-8");
-                MqttMessage message = new MqttMessage(encodedPayload);
-                message.setRetained(false);
-                client.publish(topic, message);
-            } catch (UnsupportedEncodingException | MqttException e) {
-                e.printStackTrace();
-            }
-        }
-
-        else if (seekBar.equals(seekBar1)){
-
-            if (progress == 0){
-                progress = 1;
-                seekBar1.setProgress(1);
-            }
-
-            String payload = String.valueOf(progress);
-            String time = String.valueOf( Double.valueOf(payload)/10 );
-
             String topic = "/timemicro";
-            byte[] encodedPayload = new byte[0];
-            try {
-                progress = Integer.valueOf((int) (Double.valueOf(progress) * 10)+1) ;
-                textView1.setText("Tiempo: " + progress + " us");
-                encodedPayload = time.getBytes("UTF-8");
-                MqttMessage message = new MqttMessage(encodedPayload);
-                message.setRetained(false);
-                client.publish(topic, message);
-            } catch (UnsupportedEncodingException | MqttException e) {
-                e.printStackTrace();
-            }
-
+            String payload = String.valueOf(progress);
+            publish_message(topic, payload);
         }
-
-        else if (seekBar.equals(seekBar3)){
-
-            if (progress == 0){
-                progress = 1;
-                seekBar3.setProgress(1);
-            }
-
-            String topic = "/microscope";
-            String payload = "z;" + String.valueOf(progress);
-            byte[] encodedPayload = new byte[0];
-            try {
-                progress = Integer.valueOf((int) (((Double.valueOf(progress) / 100) * 50))+1) ;
-                textView3.setText("Zoom (aumentos): " + progress);
-                encodedPayload = payload.getBytes("UTF-8");
-                MqttMessage message = new MqttMessage(encodedPayload);
-                message.setRetained(false);
-                client.publish(topic, message);
-            } catch (UnsupportedEncodingException | MqttException e) {
-                e.printStackTrace();
-            }
-        }
-
         else{
-
         }
     }
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-        //Toast.makeText(getApplicationContext(),"seekbar touch started!", Toast.LENGTH_SHORT).show();
-        if (seekBar.equals(seekBar0)){
-
-        }
-        else if (seekBar.equals(seekBar1)){
-
-        }
-        else{
-
-        }
-    }
-
-    @Override
-    public void onStopTrackingTouch(SeekBar seekBar) {
-        //Toast.makeText(getApplicationContext(),"seekbar touch stopped!", Toast.LENGTH_SHORT).show();
-    }
+    public void onStopTrackingTouch(SeekBar seekBar) {}
     /**************************************************************************************/
 
-    /**************************************Spinner************************************************/
+    /**************************************Spinner Callbacks************************************************/
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         selected_field = adapterView.getItemAtPosition(i).toString();
@@ -778,6 +444,61 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         else{
             payload = "500";
         }
+
+        publish_message(topic, payload);
+    }
+
+    public void connectMQTT(){
+        try {
+            IMqttToken token = client.connect(options);
+            token.setActionCallback(new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Log.d(TAG, "onSuccess");
+                    Toast.makeText(MainActivity.this, "Connection successful", Toast.LENGTH_SHORT).show();
+                    client.setCallback(MainActivity.this);
+                    final String topic = "/random_topic_with_no_intention";
+                    int qos = 1;
+                    try {
+                        IMqttToken subToken = client.subscribe(topic, qos);
+                        subToken.setActionCallback(new IMqttActionListener() {
+                            @Override
+                            public void onSuccess(IMqttToken asyncActionToken){
+                            }
+                            @Override
+                            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            }
+                        });
+                    } catch (MqttException e) {
+                        e.printStackTrace();
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    Log.d(TAG, "onFailure");
+                    Toast.makeText(MainActivity.this, "Connection failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ReconnectMQTT() {
+        if (!client.isConnected()) {
+            showToast("Client is disconnected");
+            connectMQTT();
+        }
+    }
+
+    public void showToast(String message){
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    public void publish_message(String topic, String payload){
         byte[] encodedPayload = new byte[0];
         try {
             encodedPayload = payload.getBytes("UTF-8");
@@ -788,17 +509,6 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             e.printStackTrace();
         }
     }
-
-    public void ReconnectMQTT() {
-        if (!client.isConnected()) {
-            Toast.makeText(MainActivity.this, "Client is disconnected", Toast.LENGTH_SHORT).show();
-            try {
-                client.connect(options);
-            } catch (MqttException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    /********************************************************************************************/
+    /*************************************************************************************************/
 
 }
