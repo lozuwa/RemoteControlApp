@@ -794,11 +794,49 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         if (!client.isConnected()) {
             Toast.makeText(MainActivity.this, "Client is disconnected", Toast.LENGTH_SHORT).show();
             try {
-                client.connect(options);
+                IMqttToken token = client.connect(options);
+                token.setActionCallback(new IMqttActionListener() {
+                    @Override
+                    public void onSuccess(IMqttToken asyncActionToken) {
+                        Log.e(TAG, "Connection succesful");
+                        showToast("Connection succesful");
+                        client.setCallback(MainActivity.this);
+                        final String topic = "/microscope";
+                        int qos = 1;
+                        try {
+                            IMqttToken subToken = client.subscribe(topic, qos);
+                            subToken.setActionCallback(new IMqttActionListener() {
+                                @Override
+                                public void onSuccess(IMqttToken asyncActionToken){
+                                    showToast("Subscribed succesfully to: " + topic);
+                                }
+
+                                @Override
+                                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                                    showToast("Unable to subscribe to: " + topic);
+                                }
+                            });
+                        } catch (MqttException e) {
+                            e.printStackTrace();
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                        Log.d(TAG, "Failed to connect client");
+                        showToast("Connection failed");
+                    }
+                });
             } catch (MqttException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void showToast(String message){
+        Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
     /********************************************************************************************/
 
