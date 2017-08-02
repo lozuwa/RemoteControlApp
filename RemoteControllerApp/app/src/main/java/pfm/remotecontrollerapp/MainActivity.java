@@ -15,6 +15,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.SeekBar;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     public ImageButton homeButton;
     public ImageButton MoveFieldForward;
     public ImageButton MoveFieldBackward;
+    public Button brokerbutton;
     public ToggleButton connection;
     public SeekBar seekBar0;
     public TextView textView0;
@@ -56,6 +58,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
 
     /** variables*/
     public String selected_field = "Nothing";
+    public Boolean brokerBool = false;
 
     /** mqtt client */
     public MqttAndroidClient client;
@@ -63,13 +66,15 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
 
     /** Constants */
     public static final String TEST_BROKER = "tcp://test.mosquitto.org:1883";
-    public static final String BROKER = "tcp://192.168.3.174";
+    public static final String PC_BROKER = "tcp://192.168.3.174:1883";
+    public String CHOSEN_BROKER = PC_BROKER;
 
     public static final String CONNECTION_TOPIC = "/connect";
-    public static final String Z_UP = "/zu";
-    public static final String Z_DOWN = "/zd";
-    public static final String MICROSCOPE = "/microscope";
-    public static final String HOME = "/home";
+    public static final String Z_UP_TOPIC = "/zu";
+    public static final String Z_DOWN_TOPIC = "/zd";
+    public static final String MICROSCOPE_TOPIC = "/microscope";
+    public static final String HOME_TOPIC = "/home";
+    public static final String LED_TOPIC = "/led";
 
     /** Debug tag */
     private static final String TAG = "MainActivity";
@@ -86,10 +91,10 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         options.setKeepAliveInterval( 300 );
         options.setCleanSession( false );
 
-        String clientId = MqttClient.generateClientId();
-        client = new MqttAndroidClient(this.getApplicationContext(), TEST_BROKER, clientId);
-        //connectMQTT();
-        try {
+        //String clientId = MqttClient.generateClientId();
+        //client = new MqttAndroidClient(this.getApplicationContext(), BROKER, clientId);
+        connectMQTT();
+        /*try {
             IMqttToken token = client.connect(options);
             token.setActionCallback(new IMqttActionListener() {
                 @Override
@@ -124,7 +129,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             });
         } catch (MqttException e) {
             e.printStackTrace();
-        }
+        }*/
 
         /** Instantiate UI components and bind to xml */
         zup = (ImageButton)findViewById(R.id.zup);
@@ -134,6 +139,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
 
         MoveFieldForward = (ImageButton) findViewById(R.id.movefieldforward);
         MoveFieldBackward = (ImageButton) findViewById(R.id.movefieldbackward);
+
+        brokerbutton = (Button) findViewById(R.id.brokerbutton);
 
         connection = (ToggleButton) findViewById(R.id.connection);
 
@@ -188,7 +195,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     /** Send message to activate connection */
                     String topic = "/connect";
                     String payload = "1";
-                    publish_message(topic, payload);
+                    publish_message(CONNECTION_TOPIC, payload);
                 }
                 else {
                     /** Change state */
@@ -204,7 +211,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     /** Send message to deactivate connection */
                     String topic = "/connect";
                     String payload = "2";
-                    publish_message(topic, payload);
+                    publish_message(CONNECTION_TOPIC, payload);
                 }
             }
         });
@@ -214,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                 if ( check_field(selected_field) ) {
                     String topic = "/microscope";
                     String payload = "pic;" + selected_field;
-                    publish_message(topic, payload);
+                    publish_message(MICROSCOPE_TOPIC, payload);
                     //MoveField();
                 }
                 else{
@@ -223,11 +230,38 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             }
         });
 
+        switch0.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    publish_message(LED_TOPIC, "1");
+                }
+                else {
+                    publish_message(LED_TOPIC, "0");
+                }
+            }
+        });
+
+        brokerbutton.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v){
+                brokerBool = !brokerBool;
+                if (brokerBool){
+                    CHOSEN_BROKER = PC_BROKER;
+                    showToast("Connecting to: " + CHOSEN_BROKER);
+                    connectMQTT();
+                }
+                else{
+                    CHOSEN_BROKER = TEST_BROKER;
+                    showToast("Connecting to: " + CHOSEN_BROKER);
+                    connectMQTT();
+                }
+            }
+        });
+
         homeButton.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v){
                 String topic = "/home";
                 String payload = "1";
-                publish_message(topic, payload);
+                publish_message(HOME_TOPIC, payload);
             }
         });
 
@@ -238,12 +272,12 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     zup.setBackgroundColor(Color.GREEN);
                     String topic = "/zu";
                     String payload = "1";
-                    publish_message(topic, payload);
+                    publish_message(Z_UP_TOPIC, payload);
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     zup.setBackgroundColor(Color.BLUE);
                     String topic = "/zu";
                     String payload = "2";
-                    publish_message(topic, payload);
+                    publish_message(Z_UP_TOPIC, payload);
                 }
                 return true;
             }
@@ -256,12 +290,12 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     zdown.setBackgroundColor(Color.GREEN);
                     String topic = "/zd";
                     String payload = "1";
-                    publish_message(topic, payload);
+                    publish_message(Z_DOWN_TOPIC, payload);
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     zdown.setBackgroundColor(Color.BLUE);
                     String topic = "/zd";
                     String payload = "2";
-                    publish_message(topic, payload);
+                    publish_message(Z_DOWN_TOPIC, payload);
                 }
                 return true;
             }
@@ -449,6 +483,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     }
 
     public void connectMQTT(){
+        String clientId = MqttClient.generateClientId();
+        client = new MqttAndroidClient(this.getApplicationContext(), CHOSEN_BROKER, clientId);
         try {
             IMqttToken token = client.connect(options);
             token.setActionCallback(new IMqttActionListener() {

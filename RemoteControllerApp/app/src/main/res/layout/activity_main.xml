@@ -11,7 +11,7 @@
         android:id="@+id/form_layout"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
@@ -101,6 +101,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="21dp"
+            android:checked="false"
             android:text="Led"
             android:layout_below="@+id/zdown"
             android:layout_alignLeft="@+id/zdown"
@@ -126,5 +127,16 @@
         android:layout_marginLeft="71dp"
         android:layout_marginStart="71dp"
         android:text="Pasos:" />
+
+    <Button
+        android:id="@+id/brokerbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView0"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="51dp"
+        android:layout_marginRight="51dp"
+        android:text="Broker" />
 
 </RelativeLayout>
