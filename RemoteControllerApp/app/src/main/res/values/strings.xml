@@ -21,22 +21,22 @@
 
         <item>Seleccionar</item>
         <item>Artefactos</item>
-        <item>Entamoeba histolytica</item>
-        <item>Entamoeba hartmanni</item>
-        <item>Iodamoeba butschilii</item>
-        <item>Endolimax nana</item>
-        <item>Chilomastix mesnilli</item>
-        <item>Blastocystis hominis</item>
-        <item>Giardia lamblia</item>
         <item>Ascaris lumbricoides</item>
-        <item>Uncinaria spp.</item>
-        <item>Strongyloides estercoralis</item>
+        <item>Blastocystis hominis</item>
+        <item>Chilomastix mesnilli</item>
+        <item>Entamoeba hartmanni</item>
+        <item>Entamoeba histolytica</item>
+        <item>Endolimax nana</item>
         <item>Enterobius vermicularis</item>
-        <item>Hymenolepis nana</item>
+        <item>Fasciola hepatica</item>
+        <item>Giardia lamblia</item>
         <item>Hymenolepis diminuta</item>
+        <item>Hymenolepis nana</item>
+        <item>Iodamoeba butschilii</item>
+        <item>Strongyloides estercoralis</item>
         <item>Taenia spp.</item>
         <item>Trichiris trichuris</item>
-        <item>Fasciola hepatica</item>
+        <item>Uncinaria spp.</item>
 
     </string-array>
 
