@@ -10,12 +10,34 @@
     <string name="hello_world">Hello world!</string>
 
     <string-array name="parasite_list">
+        <!--
         <item> Seleccionar </item>
         <item> Artefactos </item>
         <item> A.Lumbricoides </item>
         <item> B.Hominis </item>
         <item> E.Coli </item>
         <item> G.Lamblia </item>
+        -->
+
+        <item>Seleccionar</item>
+        <item>Artefactos</item>
+        <item>Entamoeba histolytica</item>
+        <item>Entamoeba hartmanni</item>
+        <item>Iodamoeba butschilii</item>
+        <item>Endolimax nana</item>
+        <item>Chilomastix mesnilli</item>
+        <item>Blastocystis hominis</item>
+        <item>Giardia lamblia</item>
+        <item>Ascaris lumbricoides</item>
+        <item>Uncinaria spp.</item>
+        <item>Strongyloides estercoralis</item>
+        <item>Enterobius vermicularis</item>
+        <item>Hymenolepis nana</item>
+        <item>Hymenolepis diminuta</item>
+        <item>Taenia spp.</item>
+        <item>Trichiris trichuris</item>
+        <item>Fasciola hepatica</item>
+
     </string-array>
 
 </resources>

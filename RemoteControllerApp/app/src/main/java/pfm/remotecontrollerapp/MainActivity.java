@@ -75,9 +75,12 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     public static final String MICROSCOPE_TOPIC = "/microscope";
     public static final String HOME_TOPIC = "/home";
     public static final String LED_TOPIC = "/led";
+    public static final String MOVEFIELD_TOPIC = "/movefield";
+
+    public static List<String> parasites_list;
 
     /** Debug tag */
-    private static final String TAG = "MainActivity";
+    private String TAG = "MainActivity";
 
     /** Constructor */
     @Override
@@ -90,46 +93,32 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         options.setMqttVersion( 4 );
         options.setKeepAliveInterval( 300 );
         options.setCleanSession( false );
-
-        //String clientId = MqttClient.generateClientId();
-        //client = new MqttAndroidClient(this.getApplicationContext(), BROKER, clientId);
         connectMQTT();
-        /*try {
-            IMqttToken token = client.connect(options);
-            token.setActionCallback(new IMqttActionListener() {
-                @Override
-                public void onSuccess(IMqttToken asyncActionToken) {
-                    Log.d(TAG, "onSuccess");
-                    Toast.makeText(MainActivity.this, "Connection successful", Toast.LENGTH_SHORT).show();
-                    client.setCallback(MainActivity.this);
-                    final String topic = "/random_topic_with_no_intention";
-                    int qos = 1;
-                    try {
-                        IMqttToken subToken = client.subscribe(topic, qos);
-                        subToken.setActionCallback(new IMqttActionListener() {
-                            @Override
-                            public void onSuccess(IMqttToken asyncActionToken){
-                            }
-                            @Override
-                            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                            }
-                        });
-                    } catch (MqttException e) {
-                        e.printStackTrace();
-                    } catch (NullPointerException e) {
-                        e.printStackTrace();
-                    }
-                }
 
-                @Override
-                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Log.d(TAG, "onFailure");
-                    Toast.makeText(MainActivity.this, "Connection failed", Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (MqttException e) {
-            e.printStackTrace();
-        }*/
+        /** Initialize variables */
+        parasites_list = new ArrayList<String>();
+        parasites_list.add("Artefactos");
+        parasites_list.add("Entamoeba histolytica");
+        parasites_list.add("Entamoeba hartmanni");
+        parasites_list.add("Iodamoeba butschilii");
+        parasites_list.add("Endolimax nana");
+        parasites_list.add("Chilomastix mesnilli");
+        parasites_list.add("Blastocystis hominis");
+        parasites_list.add("Giardia lamblia");
+        parasites_list.add("Ascaris lumbricoides");
+        parasites_list.add("Uncinaria spp.");
+        parasites_list.add("Strongyloides estercoralis");
+        parasites_list.add("Enterobius vermicularis");
+        parasites_list.add("Hymenolepis nana");
+        parasites_list.add("Hymenolepis diminuta");
+        parasites_list.add("Taenia spp.");
+        parasites_list.add("Trichiris trichuris");
+        parasites_list.add("Fasciola hepatica");
+
+        /**parasites_list.add("A.Lumbricoides");
+        parasites_list.add("B.Hominis");
+        parasites_list.add("E.Coli");
+        parasites_list.add("G.Lamblia");*/
 
         /** Instantiate UI components and bind to xml */
         zup = (ImageButton)findViewById(R.id.zup);
@@ -219,7 +208,6 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         picButton.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v){
                 if ( check_field(selected_field) ) {
-                    String topic = "/microscope";
                     String payload = "pic;" + selected_field;
                     publish_message(MICROSCOPE_TOPIC, payload);
                     //MoveField();
@@ -328,7 +316,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         });
     }
 
-    /********************************Callbacks class*********************************************/
+    /********************************Class' Callbacks*********************************************/
     @Override
     public void onStart(){
         super.onStart();
@@ -413,30 +401,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         selected_field = adapterView.getItemAtPosition(i).toString();
-        if (selected_field.equals("A.Lumbricoides")){
-            selected_field = "A.Lumbricoides";
-        }
-
-        else if (selected_field.equals("Artefactos")){
-            selected_field = "Artefactos";
-        }
-
-        else if (selected_field.equals("B.Hominis")){
-            selected_field = "B.Hominis";
-        }
-
-        else if (selected_field.equals("E.Coli")){
-            selected_field= "E.Coli";
-        }
-
-        else if (selected_field.equals("G.Lamblia")){
-            selected_field= "G.Lamblia";
-        }
-
-        else{
-
-        }
-        //Toast.makeText(MainActivity.this, selected_field, Toast.LENGTH_SHORT).show();
+        showToast(selected_field);
     }
 
     @Override
@@ -447,16 +412,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
 
     /**************************************Support classes************************************************/
     public Boolean check_field(String field){
-        ReconnectMQTT();
-
-        List<String> list = new ArrayList<String>();
-        list.add("Artefactos");
-        list.add("A.Lumbricoides");
-        list.add("B.Hominis");
-        list.add("E.Coli");
-        list.add("G.Lamblia");
-
-        if (list.contains(field)){
+        if (parasites_list.contains(field)){
             return true;
         }
         else {
@@ -465,9 +421,6 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     }
 
     public void MoveField(int direction){
-        ReconnectMQTT();
-
-        String topic = "/movefield";
         String payload = "";
         if (direction == 1){
             payload = "1";
@@ -476,10 +429,9 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             payload = "0";
         }
         else{
-            payload = "500";
+            payload = "--";
         }
-
-        publish_message(topic, payload);
+        publish_message(MOVEFIELD_TOPIC, payload);
     }
 
     public void connectMQTT(){
