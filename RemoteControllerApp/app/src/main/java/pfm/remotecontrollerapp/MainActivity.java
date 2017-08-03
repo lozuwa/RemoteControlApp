@@ -8,6 +8,8 @@ package pfm.remotecontrollerapp;
  * */
 
 import android.graphics.Color;
+import android.os.Handler;
+import android.os.HandlerThread;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     /** variables*/
     public String selected_field = "Nothing";
     public Boolean brokerBool = false;
+    public static List<String> parasites_list;
 
     /** mqtt client */
     public MqttAndroidClient client;
@@ -77,7 +80,10 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     public static final String LED_TOPIC = "/led";
     public static final String MOVEFIELD_TOPIC = "/movefield";
 
-    public static List<String> parasites_list;
+    /** Thread */
+    public HandlerThread mMqttKeepAlive;
+    public Handler mMqttHandler;
+    public Runnable Mqttrunnable;
 
     /** Debug tag */
     private String TAG = "MainActivity";
@@ -320,9 +326,12 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     @Override
     public void onStart(){
         super.onStart();
-        spinner.setSelection(0);
+        /** Restart UI elements */
+        spinner.setSelection(1);
         connection.setChecked(false);
         selected_field = "Nothing";
+        /** Start thread */
+        startPOSTThread();
     }
 
     @Override
@@ -336,15 +345,48 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
 
     @Override
     public void onStop(){
-        selected_field = "Nothing";
-        spinner.setSelection(0);
         super.onStop();
+        /** UI elements */
+        selected_field = "Nothing";
+        spinner.setSelection(1);
+        /** Restart threads */
+        stopBackgroundThread();
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
         client.unregisterResources();
+    }
+    /********************************************************************************************/
+
+    /*************************************Threads*************************************************/
+    public void startPOSTThread() {
+        mMqttKeepAlive = new HandlerThread("RESTThread");
+        mMqttKeepAlive.start();
+        mMqttHandler = new Handler(mMqttKeepAlive.getLooper());
+        Mqttrunnable = new Runnable() {
+            @Override
+            public void run() {
+                ReconnectMQTT();
+            }
+        };
+        mMqttHandler.postDelayed(Mqttrunnable, 120000);
+    }
+
+    public void stopBackgroundThread(){
+        try {
+            mMqttKeepAlive.quitSafely();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            mMqttKeepAlive.join();
+            mMqttKeepAlive = null;
+            mMqttHandler = null;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     /********************************************************************************************/
 
