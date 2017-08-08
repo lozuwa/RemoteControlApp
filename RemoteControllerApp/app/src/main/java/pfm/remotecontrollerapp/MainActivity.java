@@ -51,7 +51,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     public ImageButton homeButton;
     public ImageButton MoveFieldForward;
     public ImageButton MoveFieldBackward;
-    public Button brokerbutton;
+    public Button brokerButton;
+    public Button autofocusButton;
     public ToggleButton connection;
     public SeekBar seekBar0;
     public TextView textView0;
@@ -80,6 +81,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     public static final String LED_TOPIC = "/led";
     public static final String MOVEFIELD_TOPIC = "/movefield";
     public static final String STEPS_TOPIC = "/steps";
+    public static final String AUTOFOCUS_TOPIC = "/autofocus";
 
     /** Thread */
     public HandlerThread mMqttKeepAlive;
@@ -122,11 +124,6 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         parasites_list.add("Trichiris trichuris");
         parasites_list.add("Fasciola hepatica");
 
-        /**parasites_list.add("A.Lumbricoides");
-        parasites_list.add("B.Hominis");
-        parasites_list.add("E.Coli");
-        parasites_list.add("G.Lamblia");*/
-
         /** Instantiate UI components and bind to xml */
         zup = (ImageButton)findViewById(R.id.zup);
         zdown = (ImageButton)findViewById(R.id.zdown);
@@ -136,7 +133,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         MoveFieldForward = (ImageButton) findViewById(R.id.movefieldforward);
         MoveFieldBackward = (ImageButton) findViewById(R.id.movefieldbackward);
 
-        brokerbutton = (Button) findViewById(R.id.brokerbutton);
+        brokerButton = (Button) findViewById(R.id.brokerButton);
+        autofocusButton = (Button) findViewById(R.id.autofocusButton);
 
         connection = (ToggleButton) findViewById(R.id.connection);
 
@@ -172,6 +170,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         spinner.setEnabled(false);
         seekBar0.setEnabled(false);
         switch0.setEnabled(false);
+        autofocusButton.setEnabled(false);
 
         /** UI components' callback functions */
         connection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -186,6 +185,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     homeButton.setEnabled(true);
                     MoveFieldForward.setEnabled(true);
                     MoveFieldBackward.setEnabled(true);
+                    autofocusButton.setEnabled(true);
                     switch0.setEnabled(true);
 
                     /** Send message to activate connection */
@@ -203,6 +203,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     homeButton.setEnabled(false);
                     MoveFieldForward.setEnabled(false);
                     MoveFieldBackward.setEnabled(false);
+                    autofocusButton.setEnabled(false);
+                    switch0.setEnabled(false);
 
                     /** Send message to deactivate connection */
                     String topic = "/connect";
@@ -236,7 +238,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             }
         });
 
-        brokerbutton.setOnClickListener( new View.OnClickListener() {
+        brokerButton.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v){
                 brokerBool = !brokerBool;
                 if (brokerBool){
@@ -249,6 +251,15 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     showToast("Connecting to: " + CHOSEN_BROKER);
                     connectMQTT();
                 }
+            }
+        });
+
+        autofocusButton.setOnClickListener( new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                showToast("Start autofocus sequence");
+                String payload = "start";
+                publish_message(AUTOFOCUS_TOPIC, payload);
             }
         });
 

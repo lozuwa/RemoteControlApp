@@ -9,16 +9,16 @@
 
     <RelativeLayout
         android:id="@+id/form_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -31,21 +31,28 @@
             android:textOff=""
             android:textOn=""
             android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:id="@+id/brokerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/picButton"
+            android:layout_toLeftOf="@+id/connection"
             android:layout_alignParentEnd="true"
-            android:layout_marginRight="36dp"
-            android:layout_marginEnd="36dp" />
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="51dp"
+            android:layout_marginRight="51dp"
+            android:text="Broker" />
 
         <ImageButton
             android:id="@+id/picButton"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/ic_photo_camera_black_24dp"
-            android:layout_below="@+id/connection"
-            android:layout_alignRight="@+id/connection"
-            android:layout_alignEnd="@+id/connection"
             android:layout_marginRight="14dp"
-            android:layout_marginEnd="14dp" />
+            android:layout_below="@+id/connection"
+            android:layout_alignStart="@+id/brokerButton" />
 
 
         <ImageButton
@@ -53,11 +60,9 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/ic_home_black_24dp"
-            android:layout_alignTop="@+id/picButton"
-            android:layout_toLeftOf="@+id/movefieldforward"
-            android:layout_toStartOf="@+id/movefieldforward"
             android:layout_marginRight="30dp"
-            android:layout_marginEnd="30dp" />
+            android:layout_below="@+id/brokerButton"
+            android:layout_alignStart="@+id/seekBar0" />
 
         <ImageButton
             android:id="@+id/movefieldforward"
@@ -114,6 +119,14 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 
+        <Button
+            android:id="@+id/autofocusButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Autofocus"
+            android:layout_alignStart="@+id/zup"
+            android:layout_alignTop="@+id/switch0"/>
+
     </RelativeLayout>
 
     <TextView
@@ -127,16 +140,5 @@
         android:layout_marginLeft="71dp"
         android:layout_marginStart="71dp"
         android:text="Pasos:" />
-
-    <Button
-        android:id="@+id/brokerbutton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView0"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginEnd="51dp"
-        android:layout_marginRight="51dp"
-        android:text="Broker" />
 
 </RelativeLayout>
