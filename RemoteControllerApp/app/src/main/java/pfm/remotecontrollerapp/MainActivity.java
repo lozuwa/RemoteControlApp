@@ -79,6 +79,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     public static final String HOME_TOPIC = "/home";
     public static final String LED_TOPIC = "/led";
     public static final String MOVEFIELD_TOPIC = "/movefield";
+    public static final String STEPS_TOPIC = "/steps";
 
     /** Thread */
     public HandlerThread mMqttKeepAlive;
@@ -427,9 +428,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                 progress = 1;
                 seekBar0.setProgress(1);
             }
-            String topic = "/timemicro";
             String payload = String.valueOf(progress);
-            publish_message(topic, payload);
+            publish_message(STEPS_TOPIC, payload);
         }
         else{
         }
