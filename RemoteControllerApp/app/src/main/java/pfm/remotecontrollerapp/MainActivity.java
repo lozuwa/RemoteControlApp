@@ -187,9 +187,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     MoveFieldBackward.setEnabled(true);
                     autofocusButton.setEnabled(true);
                     switch0.setEnabled(true);
-
                     /** Send message to activate connection */
-                    String topic = "/connect";
                     String payload = "1";
                     publish_message(CONNECTION_TOPIC, payload);
                 }
@@ -205,9 +203,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     MoveFieldBackward.setEnabled(false);
                     autofocusButton.setEnabled(false);
                     switch0.setEnabled(false);
-
                     /** Send message to deactivate connection */
-                    String topic = "/connect";
                     String payload = "2";
                     publish_message(CONNECTION_TOPIC, payload);
                 }
@@ -259,13 +255,12 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             public void onClick(View v) {
                 showToast("Start autofocus sequence");
                 String payload = "start";
-                publish_message(AUTOFOCUS_TOPIC, payload);
+                publish_message(AUTOFOCUS_TOPIC, payload );
             }
         });
 
         homeButton.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v){
-                String topic = "/home";
                 String payload = "1";
                 publish_message(HOME_TOPIC, payload);
             }
@@ -276,12 +271,10 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     zup.setBackgroundColor(Color.GREEN);
-                    String topic = "/zu";
                     String payload = "1";
                     publish_message(Z_UP_TOPIC, payload);
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     zup.setBackgroundColor(Color.BLUE);
-                    String topic = "/zu";
                     String payload = "2";
                     publish_message(Z_UP_TOPIC, payload);
                 }
@@ -294,12 +287,10 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     zdown.setBackgroundColor(Color.GREEN);
-                    String topic = "/zd";
                     String payload = "1";
                     publish_message(Z_DOWN_TOPIC, payload);
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     zdown.setBackgroundColor(Color.BLUE);
-                    String topic = "/zd";
                     String payload = "2";
                     publish_message(Z_DOWN_TOPIC, payload);
                 }
@@ -343,16 +334,18 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         connection.setChecked(false);
         selected_field = "Nothing";
         /** Start thread */
-        startPOSTThread();
+        startMQTTThread();
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        client.registerResources( MainActivity.this );
+        client.registerResources(MainActivity.this);
         spinner.setSelection(0);
         connection.setChecked(false);
         selected_field = "Nothing";
+        ReconnectMQTT();
+        //seekBar0.setProgress(10);
     }
 
     @Override
@@ -373,7 +366,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     /********************************************************************************************/
 
     /*************************************Threads*************************************************/
-    public void startPOSTThread() {
+    public void startMQTTThread() {
         mMqttKeepAlive = new HandlerThread("RESTThread");
         mMqttKeepAlive.start();
         mMqttHandler = new Handler(mMqttKeepAlive.getLooper());
@@ -551,5 +544,4 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         }
     }
     /*************************************************************************************************/
-
 }
