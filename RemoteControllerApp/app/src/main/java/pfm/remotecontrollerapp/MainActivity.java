@@ -99,9 +99,9 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
 
         /** Build mqtt client and start connection */
         options = new MqttConnectOptions();
-        options.setMqttVersion( 4 );
-        options.setKeepAliveInterval( 300 );
-        options.setCleanSession( false );
+        options.setMqttVersion(4);
+        options.setKeepAliveInterval(300);
+        options.setCleanSession(false);
         connectMQTT();
 
         /** Initialize variables */
@@ -345,7 +345,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         connection.setChecked(false);
         selected_field = "Nothing";
         ReconnectMQTT();
-        //seekBar0.setProgress(10);
+        startMQTTThread();
     }
 
     @Override
