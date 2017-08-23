@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     /** variables*/
     public String selected_field = "Nothing";
     public Boolean brokerBool = false;
-    public static List<String> parasites_list;
+    public static List<String> parasitesList;
 
     /** mqtt client */
     public MqttAndroidClient client;
@@ -105,24 +105,25 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         connectMQTT();
 
         /** Initialize variables */
-        parasites_list = new ArrayList<String>();
-        parasites_list.add("Artefactos");
-        parasites_list.add("Entamoeba histolytica");
-        parasites_list.add("Entamoeba hartmanni");
-        parasites_list.add("Iodamoeba butschilii");
-        parasites_list.add("Endolimax nana");
-        parasites_list.add("Chilomastix mesnilli");
-        parasites_list.add("Blastocystis hominis");
-        parasites_list.add("Giardia lamblia");
-        parasites_list.add("Ascaris lumbricoides");
-        parasites_list.add("Uncinaria spp.");
-        parasites_list.add("Strongyloides estercoralis");
-        parasites_list.add("Enterobius vermicularis");
-        parasites_list.add("Hymenolepis nana");
-        parasites_list.add("Hymenolepis diminuta");
-        parasites_list.add("Taenia spp.");
-        parasites_list.add("Trichiris trichuris");
-        parasites_list.add("Fasciola hepatica");
+        parasitesList = new ArrayList<String>();
+        parasitesList.add("Artefactos");
+        parasitesList.add("Ascaris lumbricoides");
+        parasitesList.add("Blastocystis hominis");
+        parasitesList.add("Chilomastix mesnilli");
+        parasitesList.add("Endolimax nana");
+        parasitesList.add("Entamoeba coli");
+        parasitesList.add("Entamoeba histolytica");
+        parasitesList.add("Entamoeba hartmanni");
+        parasitesList.add("Enterobius vermicularis");
+        parasitesList.add("Fasciola hepatica");
+        parasitesList.add("Hymenolepis nana");
+        parasitesList.add("Hymenolepis diminuta");
+        parasitesList.add("Iodamoeba butschilii");
+        parasitesList.add("Giardia lamblia");
+        parasitesList.add("Strongyloides estercoralis");
+        parasitesList.add("Taenia spp.");
+        parasitesList.add("Trichiris trichuris");
+        parasitesList.add("Uncinaria spp.");
 
         /** Instantiate UI components and bind to xml */
         zup = (ImageButton)findViewById(R.id.zup);
@@ -344,6 +345,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         spinner.setSelection(0);
         connection.setChecked(false);
         selected_field = "Nothing";
+        /** Reconnect MQTT */
         ReconnectMQTT();
         startMQTTThread();
     }
@@ -458,7 +460,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
 
     /**************************************Support classes************************************************/
     public Boolean check_field(String field){
-        if (parasites_list.contains(field)){
+        if (parasitesList.contains(field)){
             return true;
         }
         else {
