@@ -495,6 +495,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         else if(spinner.getId() == R.id.spinnerParasite){
             selected_field = adapterView.getItemAtPosition(i).toString();
             showToast(selected_field);
+            showToast(selected_field);
         }
         else{
 
