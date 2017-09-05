@@ -1,23 +1,18 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin" tools:context=".MainActivity"
-    android:id="@+id/root">
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:fillViewport="false">
 
     <RelativeLayout
-        android:id="@+id/form_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
         <Spinner
             android:id="@+id/spinner"
-            android:layout_width="175dp"
+            android:layout_width="200dp"
             android:layout_height="30dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentLeft="true"
@@ -33,112 +28,85 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true" />
 
-        <Button
-            android:id="@+id/brokerButton"
+        <Switch
+            android:id="@+id/switch0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/picButton"
-            android:layout_toLeftOf="@+id/connection"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="51dp"
-            android:layout_marginRight="51dp"
-            android:text="Broker" />
-
-        <ImageButton
-            android:id="@+id/picButton"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_photo_camera_black_24dp"
-            android:layout_marginRight="14dp"
-            android:layout_below="@+id/connection"
-            android:layout_alignStart="@+id/brokerButton" />
-
+            android:checked="false"
+            android:text="Led"
+            android:layout_above="@+id/seekBar0"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="28dp" />
 
         <ImageButton
             android:id="@+id/homeButton"
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:src="@drawable/ic_home_black_24dp"
-            android:layout_marginRight="30dp"
-            android:layout_below="@+id/brokerButton"
-            android:layout_alignStart="@+id/seekBar0" />
-
-        <ImageButton
-            android:id="@+id/movefieldforward"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_arrow_forward_black_24dp"
-            android:layout_below="@+id/picButton"
-            android:layout_alignLeft="@+id/picButton"
-            android:layout_alignStart="@+id/picButton" />
-
-        <ImageButton
-            android:id="@+id/movefieldbackward"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_arrow_back_black_24dp"
-            android:layout_below="@+id/homeButton"
-            android:layout_alignLeft="@+id/homeButton"
-            android:layout_alignStart="@+id/homeButton" />
-
-        <ImageButton
-            android:id="@+id/zup"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_arrow_upward_black_24dp"
-            android:layout_alignTop="@+id/zdown"
-            android:layout_alignLeft="@+id/movefieldforward"
-            android:layout_alignStart="@+id/movefieldforward" />
-
-        <ImageButton
-            android:id="@+id/zdown"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/ic_arrow_downward_black_24dp"
-            android:layout_below="@+id/movefieldbackward"
-            android:layout_alignLeft="@+id/movefieldbackward"
-            android:layout_alignStart="@+id/movefieldbackward"
-            android:layout_marginTop="12dp" />
-
-        <Switch
-            android:id="@+id/switch0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="21dp"
-            android:checked="false"
-            android:text="Led"
-            android:layout_below="@+id/zdown"
-            android:layout_alignLeft="@+id/zdown"
-            android:layout_alignStart="@+id/zdown" />
+            android:layout_below="@+id/connection"
+            android:layout_alignParentRight="true" />
 
         <SeekBar
             android:id="@+id/seekBar0"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/homeButton"
+            android:layout_alignParentLeft="true" />
+
+        <!-- Move controller -->
+        <ImageButton
+            android:id="@+id/movefieldUp"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_arrow_upward_black_24dp"
+            android:layout_below="@+id/seekBar0"
+            android:layout_alignParentLeft="true" />
+
+        <ImageButton
+            android:id="@+id/movefieldforward"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:src="@drawable/ic_arrow_forward_black_24dp"
+            android:layout_below="@+id/movefieldUp"
+            android:layout_alignParentEnd="true" />
+
+        <ImageButton
+            android:id="@+id/picButton"
+            android:layout_width="100dp"
+            android:layout_height="125dp"
+            android:src="@drawable/ic_photo_camera_black_24dp"
+            android:layout_above="@+id/movefieldDown"
             android:layout_centerHorizontal="true" />
 
-        <Button
-            android:id="@+id/autofocusButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Autofocus"
-            android:layout_alignStart="@+id/zup"
-            android:layout_alignTop="@+id/switch0"/>
+        <ImageButton
+            android:id="@+id/movefieldbackward"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_below="@+id/movefieldUp"
+            android:src="@drawable/ic_arrow_back_black_24dp"/>
+
+        <ImageButton
+            android:id="@+id/movefieldDown"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:src="@drawable/ic_arrow_downward_black_24dp"
+            android:layout_below="@+id/movefieldbackward"/>
+
+        <ImageButton
+            android:id="@+id/zUp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_arrow_upward_black_24dp"
+            android:layout_below="@+id/movefieldDown"
+            android:layout_alignStart="@+id/movefieldforward" />
+
+        <ImageButton
+            android:id="@+id/zDown"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:src="@drawable/ic_arrow_downward_black_24dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignEnd="@+id/movefieldbackward" />
 
     </RelativeLayout>
-
-    <TextView
-        android:id="@+id/textView0"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="50dp"
-        android:layout_marginLeft="71dp"
-        android:layout_marginStart="71dp"
-        android:text="Pasos:" />
-
-</RelativeLayout>
+</ScrollView>

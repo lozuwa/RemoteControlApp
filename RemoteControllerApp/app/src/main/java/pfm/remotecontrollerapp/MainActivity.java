@@ -41,8 +41,8 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements MqttCallback, SeekBar.OnSeekBarChangeListener, AdapterView.OnItemSelectedListener {
-
+public class MainActivity extends AppCompatActivity implements MqttCallback, SeekBar.OnSeekBarChangeListener,
+                                                                AdapterView.OnItemSelectedListener {
     /** Attributes */
     /** UI components */
     public ImageButton zup;
@@ -51,6 +51,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     public ImageButton homeButton;
     public ImageButton MoveFieldForward;
     public ImageButton MoveFieldBackward;
+    public ImageButton MoveFieldUp;
+    public ImageButton MoveFieldDown;
     public Button brokerButton;
     public Button autofocusButton;
     public ToggleButton connection;
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
 
     /** Constants */
     public static final String TEST_BROKER = "tcp://test.mosquitto.org:1883";
-    public static final String PC_BROKER = "tcp://192.168.3.174:1883";
+    public static final String PC_BROKER = "tcp://192.168.3.193:1883";
     public String CHOSEN_BROKER = PC_BROKER;
 
     public static final String CONNECTION_TOPIC = "/connect";
@@ -79,9 +81,12 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     public static final String MICROSCOPE_TOPIC = "/microscope";
     public static final String HOME_TOPIC = "/home";
     public static final String LED_TOPIC = "/led";
-    public static final String MOVEFIELD_TOPIC = "/movefield";
+    public static final String MOVEFIELDX_TOPIC = "/movefieldx";
+    public static final String MOVEFIELDY_TOPIC = "/movefieldy";
     public static final String STEPS_TOPIC = "/steps";
     public static final String AUTOFOCUS_TOPIC = "/autofocus";
+
+    public static final int TIME_CHECK_CONNECTION = 60000;
 
     /** Thread */
     public HandlerThread mMqttKeepAlive;
@@ -126,24 +131,24 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         parasitesList.add("Uncinaria spp.");
 
         /** Instantiate UI components and bind to xml */
-        zup = (ImageButton)findViewById(R.id.zup);
-        zdown = (ImageButton)findViewById(R.id.zdown);
+        zup = (ImageButton)findViewById(R.id.zUp);
+        zdown = (ImageButton)findViewById(R.id.zDown);
         picButton = (ImageButton) findViewById(R.id.picButton);
         homeButton = (ImageButton) findViewById(R.id.homeButton);
 
         MoveFieldForward = (ImageButton) findViewById(R.id.movefieldforward);
         MoveFieldBackward = (ImageButton) findViewById(R.id.movefieldbackward);
+        MoveFieldUp = (ImageButton) findViewById(R.id.movefieldUp);
+        MoveFieldDown = (ImageButton) findViewById(R.id.movefieldDown);
 
-        brokerButton = (Button) findViewById(R.id.brokerButton);
-        autofocusButton = (Button) findViewById(R.id.autofocusButton);
+        //brokerButton = (Button) findViewById(R.id.brokerButton);
+        //autofocusButton = (Button) findViewById(R.id.autofocusButton);
 
         connection = (ToggleButton) findViewById(R.id.connection);
 
         seekBar0 = (SeekBar) findViewById(R.id.seekBar0);
         seekBar0.setProgress(1);
         seekBar0.setOnSeekBarChangeListener(this);
-
-        textView0 = (TextView) findViewById(R.id.textView0);
 
         spinner  = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(this);
@@ -158,6 +163,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         zdown.setBackgroundColor(Color.BLUE);
         MoveFieldBackward.setBackgroundColor(Color.BLUE);
         MoveFieldForward.setBackgroundColor(Color.BLUE);
+        MoveFieldUp.setBackgroundColor(Color.BLUE);
+        MoveFieldDown.setBackgroundColor(Color.BLUE);
 
         connection.setChecked(false);
 
@@ -168,6 +175,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         picButton.setEnabled(false);
         MoveFieldForward.setEnabled(false);
         MoveFieldBackward.setEnabled(false);
+        MoveFieldUp.setEnabled(false);
+        MoveFieldDown.setEnabled(false);
         spinner.setEnabled(false);
         seekBar0.setEnabled(false);
         switch0.setEnabled(false);
@@ -186,6 +195,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     homeButton.setEnabled(true);
                     MoveFieldForward.setEnabled(true);
                     MoveFieldBackward.setEnabled(true);
+                    MoveFieldUp.setEnabled(true);
+                    MoveFieldDown.setEnabled(true);
                     autofocusButton.setEnabled(true);
                     switch0.setEnabled(true);
                     /** Send message to activate connection */
@@ -202,6 +213,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     homeButton.setEnabled(false);
                     MoveFieldForward.setEnabled(false);
                     MoveFieldBackward.setEnabled(false);
+                    MoveFieldUp.setEnabled(false);
+                    MoveFieldDown.setEnabled(false);
                     autofocusButton.setEnabled(false);
                     switch0.setEnabled(false);
                     /** Send message to deactivate connection */
@@ -235,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             }
         });
 
-        brokerButton.setOnClickListener( new View.OnClickListener() {
+        /*brokerButton.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v){
                 brokerBool = !brokerBool;
                 if (brokerBool){
@@ -258,7 +271,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                 String payload = "start";
                 publish_message(AUTOFOCUS_TOPIC, payload );
             }
-        });
+        });*/
 
         homeButton.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v){
@@ -304,7 +317,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     MoveFieldForward.setBackgroundColor(Color.GREEN);
-                    MoveField(1);
+                    MoveFieldX(1);
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     MoveFieldForward.setBackgroundColor(Color.BLUE);
                 }
@@ -317,13 +330,40 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     MoveFieldBackward.setBackgroundColor(Color.GREEN);
-                    MoveField(0);
+                    MoveFieldX(0);
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     MoveFieldBackward.setBackgroundColor(Color.BLUE);
                 }
                 return true;
             }
         });
+
+        MoveFieldUp.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    MoveFieldUp.setBackgroundColor(Color.GREEN);
+                    MoveFieldY(1);
+                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    MoveFieldUp.setBackgroundColor(Color.BLUE);
+                }
+                return true;
+            }
+        });
+
+        MoveFieldDown.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    MoveFieldDown.setBackgroundColor(Color.GREEN);
+                    MoveFieldY(0);
+                } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
+                    MoveFieldDown.setBackgroundColor(Color.BLUE);
+                }
+                return true;
+            }
+        });
+
     }
 
     /********************************Class' Callbacks*********************************************/
@@ -342,6 +382,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     public void onResume(){
         super.onResume();
         client.registerResources(MainActivity.this);
+        /** Reset UI components */
         spinner.setSelection(0);
         connection.setChecked(false);
         selected_field = "Nothing";
@@ -378,7 +419,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                 ReconnectMQTT();
             }
         };
-        mMqttHandler.postDelayed(Mqttrunnable, 120000);
+        mMqttHandler.postDelayed(Mqttrunnable, TIME_CHECK_CONNECTION);
     }
 
     public void stopBackgroundThread(){
@@ -420,10 +461,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         if (seekBar.equals(seekBar0)){
-
         }
         else{
-
         }
     }
 
@@ -432,7 +471,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         if (seekBar.equals(seekBar0)){
             if (progress == 0){
                 progress = 1;
-                seekBar0.setProgress(1);
+                seekBar0.setProgress(progress);
             }
             String payload = String.valueOf(progress);
             publish_message(STEPS_TOPIC, payload);
@@ -468,7 +507,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         }
     }
 
-    public void MoveField(int direction){
+    public void MoveFieldX(int direction){
         String payload = "";
         if (direction == 1){
             payload = "1";
@@ -479,7 +518,21 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         else{
             payload = "--";
         }
-        publish_message(MOVEFIELD_TOPIC, payload);
+        publish_message(MOVEFIELDX_TOPIC, payload);
+    }
+
+    public void MoveFieldY(int direction){
+        String payload = "";
+        if (direction == 1){
+            payload = "1";
+        }
+        else if (direction == 0){
+            payload = "0";
+        }
+        else{
+            payload = "--";
+        }
+        publish_message(MOVEFIELDY_TOPIC, payload);
     }
 
     public void connectMQTT(){
@@ -523,8 +576,8 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         }
     }
 
-    public void ReconnectMQTT() {
-        if (!client.isConnected()) {
+    public void ReconnectMQTT(){
+        if (!client.isConnected()){
             showToast("Client is disconnected");
             connectMQTT();
         }
