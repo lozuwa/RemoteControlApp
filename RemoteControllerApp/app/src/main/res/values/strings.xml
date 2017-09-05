@@ -10,15 +10,6 @@
     <string name="hello_world">Hello world!</string>
 
     <string-array name="parasite_list">
-        <!--
-        <item> Seleccionar </item>
-        <item> Artefactos </item>
-        <item> A.Lumbricoides </item>
-        <item> B.Hominis </item>
-        <item> E.Coli </item>
-        <item> G.Lamblia </item>
-        -->
-
         <item>Seleccionar</item>
         <item>Artefactos</item>
         <item>Ascaris lumbricoides</item>
@@ -38,7 +29,12 @@
         <item>Taenia spp.</item>
         <item>Trichiris trichuris</item>
         <item>Uncinaria spp.</item>
+    </string-array>
 
+    <string-array name="broker_list">
+        <item>tcp://192.168.3.193:1883</item>
+        <item>tcp://192.168.3.173:1883</item>
+        <item>tcp://test.mosquittto.org:1883</item>
     </string-array>
 
 </resources>

@@ -43,23 +43,25 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements MqttCallback, SeekBar.OnSeekBarChangeListener,
                                                                 AdapterView.OnItemSelectedListener {
-    /** Attributes */
-    /** UI components */
+    /*** UI components */
+    /** Controller*/
     public ImageButton zup;
     public ImageButton zdown;
-    public ImageButton picButton;
-    public ImageButton homeButton;
     public ImageButton MoveFieldForward;
     public ImageButton MoveFieldBackward;
     public ImageButton MoveFieldUp;
     public ImageButton MoveFieldDown;
+    /** Actions */
+    public ImageButton picButton;
+    public ImageButton homeButton;
     public Button brokerButton;
     public Button autofocusButton;
     public ToggleButton connection;
+    /** Selections */
     public SeekBar seekBar0;
-    public TextView textView0;
-    public Spinner spinner;
-    public Switch switch0;
+    public Spinner spinnerParasite;
+    public Spinner spinnerBroker;
+    public Switch switchLed;
 
     /** variables*/
     public String selected_field = "Nothing";
@@ -133,16 +135,16 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         /** Instantiate UI components and bind to xml */
         zup = (ImageButton)findViewById(R.id.zUp);
         zdown = (ImageButton)findViewById(R.id.zDown);
-        picButton = (ImageButton) findViewById(R.id.picButton);
-        homeButton = (ImageButton) findViewById(R.id.homeButton);
-
         MoveFieldForward = (ImageButton) findViewById(R.id.movefieldforward);
         MoveFieldBackward = (ImageButton) findViewById(R.id.movefieldbackward);
         MoveFieldUp = (ImageButton) findViewById(R.id.movefieldUp);
         MoveFieldDown = (ImageButton) findViewById(R.id.movefieldDown);
 
-        //brokerButton = (Button) findViewById(R.id.brokerButton);
-        //autofocusButton = (Button) findViewById(R.id.autofocusButton);
+        picButton = (ImageButton) findViewById(R.id.picButton);
+        homeButton = (ImageButton) findViewById(R.id.homeButton);
+
+        brokerButton = (Button) findViewById(R.id.brokerButton);
+        ////autofocusButton = (Button) findViewById(R.id.//autofocusButton);
 
         connection = (ToggleButton) findViewById(R.id.connection);
 
@@ -150,13 +152,19 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         seekBar0.setProgress(1);
         seekBar0.setOnSeekBarChangeListener(this);
 
-        spinner  = (Spinner) findViewById(R.id.spinner);
-        spinner.setOnItemSelectedListener(this);
+        spinnerBroker = (Spinner) findViewById(R.id.spinnerBroker);
+        spinnerBroker.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this, R.array.broker_list, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerBroker.setAdapter(adapter2);
+
+        spinnerParasite  = (Spinner) findViewById(R.id.spinnerParasite);
+        spinnerParasite.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.parasite_list, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        spinnerParasite.setAdapter(adapter);
 
-        switch0 = (Switch) findViewById(R.id.switch0);
+        switchLed = (Switch) findViewById(R.id.switchLed);
 
         /** Configure initial parameters of UI components */
         zup.setBackgroundColor(Color.BLUE);
@@ -177,10 +185,10 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         MoveFieldBackward.setEnabled(false);
         MoveFieldUp.setEnabled(false);
         MoveFieldDown.setEnabled(false);
-        spinner.setEnabled(false);
+        spinnerParasite.setEnabled(false);
         seekBar0.setEnabled(false);
-        switch0.setEnabled(false);
-        autofocusButton.setEnabled(false);
+        switchLed.setEnabled(false);
+        ////autofocusButton.setEnabled(false);
 
         /** UI components' callback functions */
         connection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -190,15 +198,15 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     seekBar0.setEnabled(true);
                     zup.setEnabled(true);
                     zdown.setEnabled(true);
-                    spinner.setEnabled(true);
+                    spinnerParasite.setEnabled(true);
                     picButton.setEnabled(true);
                     homeButton.setEnabled(true);
                     MoveFieldForward.setEnabled(true);
                     MoveFieldBackward.setEnabled(true);
                     MoveFieldUp.setEnabled(true);
                     MoveFieldDown.setEnabled(true);
-                    autofocusButton.setEnabled(true);
-                    switch0.setEnabled(true);
+                    //autofocusButton.setEnabled(true);
+                    switchLed.setEnabled(true);
                     /** Send message to activate connection */
                     String payload = "1";
                     publish_message(CONNECTION_TOPIC, payload);
@@ -208,15 +216,15 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
                     zup.setEnabled(false);
                     zdown.setEnabled(false);
                     picButton.setEnabled(false);
-                    spinner.setEnabled(false);
+                    spinnerParasite.setEnabled(false);
                     seekBar0.setEnabled(false);
                     homeButton.setEnabled(false);
                     MoveFieldForward.setEnabled(false);
                     MoveFieldBackward.setEnabled(false);
                     MoveFieldUp.setEnabled(false);
                     MoveFieldDown.setEnabled(false);
-                    autofocusButton.setEnabled(false);
-                    switch0.setEnabled(false);
+                    //autofocusButton.setEnabled(false);
+                    switchLed.setEnabled(false);
                     /** Send message to deactivate connection */
                     String payload = "2";
                     publish_message(CONNECTION_TOPIC, payload);
@@ -237,7 +245,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             }
         });
 
-        switch0.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        switchLed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     publish_message(LED_TOPIC, "1");
@@ -248,23 +256,15 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
             }
         });
 
-        /*brokerButton.setOnClickListener( new View.OnClickListener() {
+        brokerButton.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v){
-                brokerBool = !brokerBool;
-                if (brokerBool){
-                    CHOSEN_BROKER = PC_BROKER;
-                    showToast("Connecting to: " + CHOSEN_BROKER);
-                    connectMQTT();
-                }
-                else{
-                    CHOSEN_BROKER = TEST_BROKER;
-                    showToast("Connecting to: " + CHOSEN_BROKER);
-                    connectMQTT();
-                }
+                //CHOSEN_BROKER = TEST_BROKER;
+                showToast("Connecting to: " + CHOSEN_BROKER);
+                connectMQTT();
             }
         });
 
-        autofocusButton.setOnClickListener( new View.OnClickListener(){
+        /*autofocusButton.setOnClickListener( new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 showToast("Start autofocus sequence");
@@ -371,7 +371,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     public void onStart(){
         super.onStart();
         /** Restart UI elements */
-        spinner.setSelection(1);
+        spinnerParasite.setSelection(1);
         connection.setChecked(false);
         selected_field = "Nothing";
         /** Start thread */
@@ -383,7 +383,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         super.onResume();
         client.registerResources(MainActivity.this);
         /** Reset UI components */
-        spinner.setSelection(0);
+        spinnerParasite.setSelection(0);
         connection.setChecked(false);
         selected_field = "Nothing";
         /** Reconnect MQTT */
@@ -396,7 +396,7 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
         super.onStop();
         /** UI elements */
         selected_field = "Nothing";
-        spinner.setSelection(1);
+        spinnerParasite.setSelection(1);
         /** Restart threads */
         stopBackgroundThread();
     }
@@ -487,8 +487,18 @@ public class MainActivity extends AppCompatActivity implements MqttCallback, See
     /**************************************Spinner Callbacks************************************************/
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        selected_field = adapterView.getItemAtPosition(i).toString();
-        showToast(selected_field);
+        Spinner spinner = (Spinner) adapterView;
+        if(spinner.getId() == R.id.spinnerBroker){
+            CHOSEN_BROKER = adapterView.getItemAtPosition(i).toString();
+            showToast(CHOSEN_BROKER);
+        }
+        else if(spinner.getId() == R.id.spinnerParasite){
+            selected_field = adapterView.getItemAtPosition(i).toString();
+            showToast(selected_field);
+        }
+        else{
+
+        }
     }
 
     @Override
