@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\Dropbox\pfm\Apps\RemoteControllerApp\android-mqtt-service\example-app\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="C:\Users\HP\Dropbox\pfm\Apps\RemoteControllerApp\android-mqtt-service\example-app\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_15dfb0d217a39f705dd02d4616ad986fe98cb247\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\Dropbox\pfm\Apps\RemoteControllerApp\android-mqtt-service\mqttservice\build\intermediates\bundles\default\libs\org.eclipse.paho.client.mqttv3-1.1.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="cb1ea538c1de053bde5388c1b98afbc140fb79d6">
+        <dex dex="C:\Users\HP\Dropbox\pfm\Apps\RemoteControllerApp\android-mqtt-service\example-app\app\build\intermediates\transforms\dex\debug\folders\1000\8\org.eclipse.paho.client.mqttv3-1.1.0_d509949972b794b9809acf76a3169240fd02c7fb\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\HP\Dropbox\pfm\Apps\RemoteControllerApp\android-mqtt-service\example-app\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3143f4f6e3f973fb77c9a99be8144459057005f6">
+        <dex dex="C:\Users\HP\Dropbox\pfm\Apps\RemoteControllerApp\android-mqtt-service\example-app\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_eb2531aa476be647ee553a0625cb8d7f52d99ed0\classes.dex" />
+    </item>
+
+</items>
