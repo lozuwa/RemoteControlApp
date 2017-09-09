@@ -8,28 +8,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.CompoundButton;
 import android.widget.ImageButton;
-import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 
-public class Controller extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-    /*** UI Elements and variables */
+public class Controller extends AppCompatActivity {
+    /*** UI Elements */
     /** Controller*/
     public ImageButton zup;
     public ImageButton zdown;
     public ImageButton XYController;
-    /** parasite spinner */
-    public Spinner spinnerParasite;
-    /** Led switch */
-    public Switch switchLed;
-    /** Constant variables */
+
     public static final String Z_UP_TOPIC = "/zu";
     public static final String Z_DOWN_TOPIC = "/zd";
-    public static final String LED_TOPIC = "/led";
 
     /** Force landscape orientation */
     //setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -39,23 +29,13 @@ public class Controller extends AppCompatActivity implements AdapterView.OnItemS
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_controller);
 
-        /*** Receive message */
         Intent intent = getIntent();
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
-        /*** Instance UI */
-        /** Controller */
+        /** Instance UI */
         zup = (ImageButton)findViewById(R.id.zUp);
         zdown = (ImageButton)findViewById(R.id.zDown);
         XYController = (ImageButton) findViewById(R.id.XYController);
-        /** Spinner parasite */
-        spinnerParasite  = (Spinner) findViewById(R.id.spinnerParasite);
-        spinnerParasite.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.parasite_list, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerParasite.setAdapter(adapter);
-        /** Led switch */
-        switchLed = (Switch) findViewById(R.id.switchLed);
 
         zup.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -103,34 +83,9 @@ public class Controller extends AppCompatActivity implements AdapterView.OnItemS
                 Toast.makeText(Controller.this, "bottom", Toast.LENGTH_SHORT).show();
             }
         });
-
-        switchLed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    //publish_message(LED_TOPIC, "1");
-                }
-                else {
-                    //publish_message(LED_TOPIC, "0");
-                }
-            }
-        });
-
+        
     }
 
-    /*** Callback spinners */
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Spinner spinner = (Spinner) adapterView;
-        //selected_field = adapterView.getItemAtPosition(i).toString();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-    }
-
-    /*** Support methods */
-    public void showToast(String message){
-        Toast.makeText(Controller.this, message, Toast.LENGTH_SHORT).show();
-    }
+    
 
 }

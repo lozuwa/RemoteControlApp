@@ -43,7 +43,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener,
+public class MainActivity extends AppCompatActivity implements MqttCallback, SeekBar.OnSeekBarChangeListener,
                                                                 AdapterView.OnItemSelectedListener {
 
     /**Intents*/
@@ -59,10 +59,17 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     public ToggleButton connection;
     /** Selections */
     public SeekBar seekBar0;
+    public Spinner spinnerParasite;
     public Spinner spinnerBroker;
+    public Switch switchLed;
 
     /** variables*/
     public String selected_field = "Nothing";
+    public static List<String> parasitesList;
+
+    /** mqtt client */
+    public MqttAndroidClient client;
+    public MqttConnectOptions options;
 
     /** Constants */
     public static final String EXTRA_MESSAGE = "com.example.pfm.remoteControllerApp";
@@ -74,12 +81,18 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
 
     public static final String MICROSCOPE_TOPIC = "/microscope";
     public static final String HOME_TOPIC = "/home";
+    public static final String LED_TOPIC = "/led";
     public static final String MOVEFIELDX_TOPIC = "/movefieldx";
     public static final String MOVEFIELDY_TOPIC = "/movefieldy";
     public static final String STEPS_TOPIC = "/steps";
     public static final String AUTOFOCUS_TOPIC = "/autofocus";
 
     public static final int TIME_CHECK_CONNECTION = 60000;
+
+    /** Thread */
+    public HandlerThread mMqttKeepAlive;
+    public Handler mMqttHandler;
+    public Runnable Mqttrunnable;
 
     /** Debug tag */
     private String TAG = "MainActivity";
@@ -93,12 +106,41 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         /** Force landscape orientation */
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        /** Build mqtt client and start connection */
+        options = new MqttConnectOptions();
+        options.setMqttVersion(4);
+        options.setKeepAliveInterval(300);
+        options.setCleanSession(false);
+        connectMQTT();
+
+        /** Initialize variables */
+        parasitesList = new ArrayList<String>();
+        parasitesList.add("Artefactos");
+        parasitesList.add("Ascaris lumbricoides");
+        parasitesList.add("Blastocystis hominis");
+        parasitesList.add("Chilomastix mesnilli");
+        parasitesList.add("Endolimax nana");
+        parasitesList.add("Entamoeba coli");
+        parasitesList.add("Entamoeba histolytica");
+        parasitesList.add("Entamoeba hartmanni");
+        parasitesList.add("Enterobius vermicularis");
+        parasitesList.add("Fasciola hepatica");
+        parasitesList.add("Hymenolepis nana");
+        parasitesList.add("Hymenolepis diminuta");
+        parasitesList.add("Iodamoeba butschilii");
+        parasitesList.add("Giardia lamblia");
+        parasitesList.add("Strongyloides estercoralis");
+        parasitesList.add("Taenia spp.");
+        parasitesList.add("Trichiris trichuris");
+        parasitesList.add("Uncinaria spp.");
+
         /** Instantiate UI components and bind to xml */
         toController = (Button) findViewById(R.id.toController);
         picButton = (ImageButton) findViewById(R.id.picButton);
         homeButton = (ImageButton) findViewById(R.id.homeButton);
 
         brokerButton = (Button) findViewById(R.id.brokerButton);
+        ////autofocusButton = (Button) findViewById(R.id.//autofocusButton);
 
         connection = (ToggleButton) findViewById(R.id.connection);
 
@@ -112,13 +154,23 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBroker.setAdapter(adapter2);
 
+        spinnerParasite  = (Spinner) findViewById(R.id.spinnerParasite);
+        spinnerParasite.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.parasite_list, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerParasite.setAdapter(adapter);
+
+        switchLed = (Switch) findViewById(R.id.switchLed);
+
         /** Configure initial parameters of UI components */
         connection.setChecked(false);
 
         connection.setEnabled(true);
         homeButton.setEnabled(false);
         picButton.setEnabled(false);
+        spinnerParasite.setEnabled(false);
         seekBar0.setEnabled(false);
+        switchLed.setEnabled(false);
 
         /** UI components' callback functions */
         connection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -126,28 +178,51 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 if (isChecked) {
                     /** Change state*/
                     seekBar0.setEnabled(true);
+                    spinnerParasite.setEnabled(true);
                     picButton.setEnabled(true);
                     homeButton.setEnabled(true);
+                    //autofocusButton.setEnabled(true);
+                    switchLed.setEnabled(true);
                     /** Send message to activate connection */
                     String payload = "1";
-                    //publish_message(CONNECTION_TOPIC, payload);
+                    publish_message(CONNECTION_TOPIC, payload);
                 }
                 else {
                     /** Change state */
                     picButton.setEnabled(false);
+                    spinnerParasite.setEnabled(false);
                     seekBar0.setEnabled(false);
                     homeButton.setEnabled(false);
+                    //autofocusButton.setEnabled(false);
+                    switchLed.setEnabled(false);
                     /** Send message to deactivate connection */
                     String payload = "2";
-                    //publish_message(CONNECTION_TOPIC, payload);
+                    publish_message(CONNECTION_TOPIC, payload);
                 }
             }
         });
 
         picButton.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v){
-            String payload = "pic;" + selected_field;
-            //publish_message(MICROSCOPE_TOPIC, payload);
+                if ( check_field(selected_field) ) {
+                    String payload = "pic;" + selected_field;
+                    publish_message(MICROSCOPE_TOPIC, payload);
+                    //MoveField();
+                }
+                else{
+                    showToast("Nombre no permitido");
+                }
+            }
+        });
+
+        switchLed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    publish_message(LED_TOPIC, "1");
+                }
+                else {
+                    publish_message(LED_TOPIC, "0");
+                }
             }
         });
 
@@ -155,14 +230,14 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
             public void onClick(View v){
                 //CHOSEN_BROKER = TEST_BROKER;
                 showToast("Connecting to: " + CHOSEN_BROKER);
-                //connectMQTT();
+                connectMQTT();
             }
         });
 
         homeButton.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v){
                 String payload = "1";
-                //publish_message(HOME_TOPIC, payload);
+                publish_message(HOME_TOPIC, payload);
             }
         });
 
@@ -182,22 +257,24 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     public void onStart(){
         super.onStart();
         /** Restart UI elements */
+        spinnerParasite.setSelection(1);
         connection.setChecked(false);
         selected_field = "Nothing";
         /** Start thread */
-        //startMQTTThread();
+        startMQTTThread();
     }
 
     @Override
     public void onResume(){
         super.onResume();
-        //client.registerResources(MainActivity.this);
+        client.registerResources(MainActivity.this);
         /** Reset UI components */
+        spinnerParasite.setSelection(0);
         connection.setChecked(false);
         selected_field = "Nothing";
         /** Reconnect MQTT */
-        //ReconnectMQTT();
-        //startMQTTThread();
+        ReconnectMQTT();
+        startMQTTThread();
     }
 
     @Override
@@ -205,14 +282,64 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         super.onStop();
         /** UI elements */
         selected_field = "Nothing";
+        spinnerParasite.setSelection(1);
         /** Restart threads */
-        //stopBackgroundThread();
+        stopBackgroundThread();
     }
 
     @Override
     public void onDestroy(){
         super.onDestroy();
-        //client.unregisterResources();
+        client.unregisterResources();
+    }
+    /********************************************************************************************/
+
+    /*************************************Threads*************************************************/
+    public void startMQTTThread() {
+        mMqttKeepAlive = new HandlerThread("RESTThread");
+        mMqttKeepAlive.start();
+        mMqttHandler = new Handler(mMqttKeepAlive.getLooper());
+        Mqttrunnable = new Runnable() {
+            @Override
+            public void run() {
+                ReconnectMQTT();
+            }
+        };
+        mMqttHandler.postDelayed(Mqttrunnable, TIME_CHECK_CONNECTION);
+    }
+
+    public void stopBackgroundThread(){
+        try {
+            mMqttKeepAlive.quitSafely();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            mMqttKeepAlive.join();
+            mMqttKeepAlive = null;
+            mMqttHandler = null;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+    /********************************************************************************************/
+
+    /*************************************MQTT Callbacks*************************************************/
+    @Override
+    public void connectionLost(Throwable cause) {
+        showToast("Client disconneted because: " + cause.toString());
+        if (!client.isConnected()) {
+            connectMQTT();
+        }
+    }
+
+    @Override
+    public void messageArrived(String topic, MqttMessage message) throws Exception {
+        showToast("Topic: " + topic + " Message: " + message.toString());
+    }
+
+    @Override
+    public void deliveryComplete(IMqttDeliveryToken token) {
     }
     /********************************************************************************************/
 
@@ -233,7 +360,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
                 seekBar0.setProgress(progress);
             }
             String payload = String.valueOf(progress);
-            //publish_message(STEPS_TOPIC, payload);
+            publish_message(STEPS_TOPIC, payload);
         }
         else{
         }
@@ -246,8 +373,18 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     /**************************************Spinner Callbacks************************************************/
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        CHOSEN_BROKER = adapterView.getItemAtPosition(i).toString();
-        showToast(CHOSEN_BROKER);
+        Spinner spinner = (Spinner) adapterView;
+        if(spinner.getId() == R.id.spinnerBroker){
+            CHOSEN_BROKER = adapterView.getItemAtPosition(i).toString();
+            showToast(CHOSEN_BROKER);
+        }
+        else if(spinner.getId() == R.id.spinnerParasite){
+            selected_field = adapterView.getItemAtPosition(i).toString();
+            showToast(selected_field);
+        }
+        else{
+
+        }
     }
 
     @Override
@@ -257,6 +394,15 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
     /**************************************************************************************/
 
     /**************************************Support classes************************************************/
+    public Boolean check_field(String field){
+        if (parasitesList.contains(field)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public void MoveFieldX(int direction){
         String payload = "";
         if (direction == 1){
@@ -268,7 +414,7 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         else{
             payload = "--";
         }
-        //publish_message(MOVEFIELDX_TOPIC, payload);
+        publish_message(MOVEFIELDX_TOPIC, payload);
     }
 
     public void MoveFieldY(int direction){
@@ -282,10 +428,71 @@ public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBar
         else{
             payload = "--";
         }
-        //publish_message(MOVEFIELDY_TOPIC, payload);
+        publish_message(MOVEFIELDY_TOPIC, payload);
+    }
+
+    public void connectMQTT(){
+        String clientId = MqttClient.generateClientId();
+        client = new MqttAndroidClient(this.getApplicationContext(), CHOSEN_BROKER, clientId);
+        try {
+            IMqttToken token = client.connect(options);
+            token.setActionCallback(new IMqttActionListener() {
+                @Override
+                public void onSuccess(IMqttToken asyncActionToken) {
+                    Log.d(TAG, "onSuccess");
+                    Toast.makeText(MainActivity.this, "Connection successful", Toast.LENGTH_SHORT).show();
+                    client.setCallback(MainActivity.this);
+                    final String topic = "/random_topic_with_no_intention";
+                    int qos = 1;
+                    try {
+                        IMqttToken subToken = client.subscribe(topic, qos);
+                        subToken.setActionCallback(new IMqttActionListener() {
+                            @Override
+                            public void onSuccess(IMqttToken asyncActionToken){
+                            }
+                            @Override
+                            public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                            }
+                        });
+                    } catch (MqttException e) {
+                        e.printStackTrace();
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
+                    Log.d(TAG, "onFailure");
+                    Toast.makeText(MainActivity.this, "Connection failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (MqttException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ReconnectMQTT(){
+        if (!client.isConnected()){
+            showToast("Client is disconnected");
+            connectMQTT();
+        }
     }
 
     public void showToast(String message){
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
     }
+
+    public void publish_message(String topic, String payload){
+        byte[] encodedPayload = new byte[0];
+        try {
+            encodedPayload = payload.getBytes("UTF-8");
+            MqttMessage message = new MqttMessage(encodedPayload);
+            message.setRetained(false);
+            client.publish(topic, message);
+        } catch (UnsupportedEncodingException | MqttException e) {
+            e.printStackTrace();
+        }
+    }
+    /*************************************************************************************************/
 }
