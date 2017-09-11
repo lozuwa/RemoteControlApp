@@ -20,7 +20,7 @@
         android:layout_height="250dp"
         android:src="@drawable/ic_arrow_upward_black_24dp"
         android:layout_below="@+id/textView2"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentStart="true" />
 
     <ImageButton
         android:id="@+id/zUp"

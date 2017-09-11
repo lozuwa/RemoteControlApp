@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">MQTT Demo</string>
+
+    <string-array name="broker_list">
+        <item>tcp://192.168.3.193:1883</item>
+        <item>tcp://192.168.3.173:1883</item>
+        <item>tcp://test.mosquittto.org:1883</item>
+    </string-array>
+    <string name="title_activity_controller">Controller</string>
+
 </resources>
