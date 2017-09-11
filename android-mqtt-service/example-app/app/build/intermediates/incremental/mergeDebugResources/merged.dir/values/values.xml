@@ -5,6 +5,27 @@
         <item>tcp://192.168.3.173:1883</item>
         <item>tcp://test.mosquittto.org:1883</item>
     </string-array>
+    <string-array name="parasite_list">
+        <item>Seleccionar</item>
+        <item>Artefactos</item>
+        <item>Ascaris lumbricoides</item>
+        <item>Blastocystis hominis</item>
+        <item>Chilomastix mesnilli</item>
+        <item>Entamoeba hartmanni</item>
+        <item>Entamoeba histolytica</item>
+        <item>Entamoeba coli</item>
+        <item>Endolimax nana</item>
+        <item>Enterobius vermicularis</item>
+        <item>Fasciola hepatica</item>
+        <item>Giardia lamblia</item>
+        <item>Hymenolepis diminuta</item>
+        <item>Hymenolepis nana</item>
+        <item>Iodamoeba butschilii</item>
+        <item>Strongyloides estercoralis</item>
+        <item>Taenia spp.</item>
+        <item>Trichiris trichuris</item>
+        <item>Uncinaria spp.</item>
+    </string-array>
     <attr format="reference" name="constraintSet"/>
     <attr format="reference" name="drawerArrowStyle"/>
     <attr format="dimension" name="height"/>

@@ -1,6 +1,8 @@
 package net.igenius.mqttdemo;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -96,6 +98,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         /** Content */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         /** UI Elements */
         spinnerBroker = (Spinner) findViewById(R.id.spinnerBroker);
         brokerButton = (Button) findViewById(R.id.brokerButton);
@@ -122,6 +126,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                                         0,
                                                         true,
                                                         subscribeTopic);
+                Intent intent = new Intent(MainActivity.this, Controller.class);
+                //intent.putExtra(EXTRA_MESSAGE, message);
+                startActivity(intent);
             }
         });
 

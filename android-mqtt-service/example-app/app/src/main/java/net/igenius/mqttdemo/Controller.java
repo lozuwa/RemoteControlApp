@@ -1,5 +1,6 @@
 package net.igenius.mqttdemo;
 
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,9 +9,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -18,21 +22,29 @@ import net.igenius.mqttservice.MQTTServiceCommand;
 
 import java.io.UnsupportedEncodingException;
 
-public class Controller extends AppCompatActivity {
+public class Controller extends AppCompatActivity  implements AdapterView.OnItemSelectedListener{
 
     /** Variables and instances */
     /** UI Elements */
-    public ImageButton XYController;
+    public ImageButton right;
+    public ImageButton left;
+    public ImageButton up;
+    public ImageButton down;
     public ImageButton zUp;
     public ImageButton zDown;
+    public ImageButton picButton;
     public Switch switchLed;
+    public Spinner parasiteSpinner;
 
     /** Constant strings */
-    public static final String MOVEFIELDX_TOPIC = "/movefieldx";
-    public static final String MOVEFIELDY_TOPIC = "/movefieldy";
-    public static final String Z_UP_TOPIC = "/zUp";
-    public static final String Z_DOWN_TOPIC = "/zDown";
+    public static final String MICROSCOPE_TOPIC = "/microscope";
+    public static final String MOVEFIELDX_TOPIC = "/movefieldy";
+    public static final String MOVEFIELDY_TOPIC = "/movefieldx";
+    public static final String Z_UP_TOPIC = "/zu";
+    public static final String Z_DOWN_TOPIC = "/zd";
     public static final String LED_TOPIC = "/led";
+
+    public static String CHOSEN_PARASITE = "";
 
     /** Constructor */
     @Override
@@ -41,14 +53,27 @@ public class Controller extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_controller);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         /** UI Elements */
-        XYController = (ImageButton) findViewById(R.id.XYController);
+        right = (ImageButton) findViewById(R.id.right);
+        left = (ImageButton) findViewById(R.id.left);
+        down = (ImageButton) findViewById(R.id.down);
+        up = (ImageButton) findViewById(R.id.up);
         zUp = (ImageButton) findViewById(R.id.zUp);
         zDown = (ImageButton) findViewById(R.id.zDown);
+        picButton = (ImageButton) findViewById(R.id.picButton);
         switchLed = (Switch) findViewById(R.id.switchLed);
+        parasiteSpinner = (Spinner) findViewById(R.id.spinnerParasite);
+        parasiteSpinner.setOnItemSelectedListener(this);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                                                                            R.array.parasite_list,
+                                                                            android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        parasiteSpinner.setAdapter(adapter);
 
         /** UI Callbacks */
-        XYController.setOnTouchListener(new OnSwipeTouchListener(Controller.this) {
+        /*right.setOnTouchListener(new OnSwipeTouchListener(Controller.this) {
             public void onSwipeTop() {
                 publishMessage(MOVEFIELDY_TOPIC, "1");
                 //showToast("Top");
@@ -67,6 +92,54 @@ public class Controller extends AppCompatActivity {
             public void onSwipeBottom() {
                 publishMessage(MOVEFIELDY_TOPIC, "0");
                 //showToast("Bottom");
+            }
+        });*/
+
+        left.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    publishMessage(MOVEFIELDX_TOPIC, "0");
+                }
+                else {
+                }
+                return true;
+            }
+        });
+
+        right.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    publishMessage(MOVEFIELDX_TOPIC, "1");
+                }
+                else {
+                }
+                return true;
+            }
+        });
+
+        up.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    publishMessage(MOVEFIELDY_TOPIC, "1");
+                }
+                else {
+                }
+                return true;
+            }
+        });
+
+        down.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    publishMessage(MOVEFIELDY_TOPIC, "0");
+                }
+                else {
+                }
+                return true;
             }
         });
 
@@ -109,6 +182,20 @@ public class Controller extends AppCompatActivity {
             }
         });
 
+        picButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    String payload = "pic;" + CHOSEN_PARASITE;
+                    publishMessage(MICROSCOPE_TOPIC, payload);
+                }
+                else{
+
+                }
+                return true;
+            }
+        });
+
     }
 
     /*** Support methods */
@@ -128,4 +215,20 @@ public class Controller extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+        Spinner spinner = (Spinner) adapterView;
+        if(spinner.getId() == R.id.spinnerParasite) {
+            CHOSEN_PARASITE = adapterView.getItemAtPosition(position).toString();
+            showToast(CHOSEN_PARASITE);
+        }
+        else {
+
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
