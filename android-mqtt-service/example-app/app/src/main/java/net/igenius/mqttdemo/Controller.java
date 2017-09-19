@@ -236,10 +236,10 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
         Spinner spinner = (Spinner) adapterView;
         if(spinner.getId() == R.id.spinnerParasite) {
             CHOSEN_PARASITE = adapterView.getItemAtPosition(position).toString();
-            showToast(CHOSEN_PARASITE);
+            //showToast(CHOSEN_PARASITE);
         }
         else {
-
+            //nothing
         }
     }
 
