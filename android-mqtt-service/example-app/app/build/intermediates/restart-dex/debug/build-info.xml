@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <instant-run
-    abi="arm64-v8a,armeabi-v7a,armeabi"
+    abi="armeabi-v7a,armeabi"
     api-level="23"
     build-mode="FULL"
-    density="xhdpi"
+    density="xxhdpi"
     format="10"
     plugin-version="2.3.2"
-    timestamp="1505163446100"
+    timestamp="1505330625093"
     token="-2053117293789557109"
     verifier="FULL_BUILD_REQUESTED" >
 
@@ -18,7 +18,7 @@
         duration="0" />
     <task
         name="instant-run-transform"
-        duration="997" />
+        duration="3323" />
     <task
         name="verifier"
         duration="0" />
@@ -62,7 +62,7 @@
 
     <build
         build-mode="FULL"
-        timestamp="1505163446100"
+        timestamp="1505330625093"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="C:\Users\HP\Dropbox\pfm\Apps\RemoteControllerApp\android-mqtt-service\example-app\app\build\intermediates\split-apk\debug\slices\slice_2.apk"
