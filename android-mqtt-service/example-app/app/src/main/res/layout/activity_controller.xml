@@ -17,11 +17,20 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/ic_photo_camera_black_24dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginStart="12dp"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/zUp"
-        android:layout_alignStart="@+id/zUp" />
+        android:layout_toLeftOf="@+id/picButtonDefocused"
+        android:layout_toStartOf="@+id/picButtonDefocused"
+        android:layout_marginRight="19dp"
+        android:layout_marginEnd="19dp" />
+
+    <ImageButton
+        android:id="@+id/picButtonDefocused"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/ic_photo_camera_black_24dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <Switch
         android:id="@+id/switchLed"
@@ -42,11 +51,9 @@
         android:layout_height="50dp"
         android:src="@drawable/ic_arrow_upward_black_24dp"
         android:text="Button"
-        android:layout_marginRight="10dp"
-        android:layout_marginEnd="10dp"
         android:layout_alignTop="@+id/down"
-        android:layout_toLeftOf="@+id/down"
-        android:layout_toStartOf="@+id/down" />
+        android:layout_toLeftOf="@+id/right"
+        android:layout_toStartOf="@+id/right" />
 
     <ImageButton
         android:id="@+id/down"
@@ -55,8 +62,7 @@
         android:src="@drawable/ic_arrow_downward_black_24dp"
         android:text="Button"
         android:layout_alignBottom="@+id/picButton"
-        android:layout_alignRight="@+id/right"
-        android:layout_alignEnd="@+id/right" />
+        android:layout_centerHorizontal="true" />
 
     <ImageButton
         android:id="@+id/left"
@@ -79,16 +85,16 @@
     <ImageButton
         android:id="@+id/zUp"
         android:layout_width="150dp"
-        android:layout_height="100dp"
+        android:layout_height="105dp"
         android:src="@drawable/ic_arrow_upward_black_24dp"
-        android:layout_above="@+id/zDown"
+        android:layout_alignTop="@+id/right"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:id="@+id/zDown"
         android:layout_width="150dp"
-        android:layout_height="100dp"
+        android:layout_height="105dp"
         android:src="@drawable/ic_arrow_downward_black_24dp"
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/XYController"

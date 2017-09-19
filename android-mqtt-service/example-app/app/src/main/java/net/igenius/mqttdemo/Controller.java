@@ -33,6 +33,7 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
     public ImageButton zUp;
     public ImageButton zDown;
     public ImageButton picButton;
+    public ImageButton picButtonDefocused;
     public Switch switchLed;
     public Spinner parasiteSpinner;
 
@@ -63,6 +64,7 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
         zUp = (ImageButton) findViewById(R.id.zUp);
         zDown = (ImageButton) findViewById(R.id.zDown);
         picButton = (ImageButton) findViewById(R.id.picButton);
+        picButtonDefocused = (ImageButton) findViewById(R.id.picButtonDefocused);
         switchLed = (Switch) findViewById(R.id.switchLed);
         parasiteSpinner = (Spinner) findViewById(R.id.spinnerParasite);
         parasiteSpinner.setOnItemSelectedListener(this);
@@ -190,6 +192,20 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
                     publishMessage(MICROSCOPE_TOPIC, payload);
                 }
                 else{
+
+                }
+                return true;
+            }
+        });
+
+        picButtonDefocused.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    String payload = "picDefocused;" + CHOSEN_PARASITE;
+                    publishMessage(MICROSCOPE_TOPIC, payload);
+                }
+                else {
 
                 }
                 return true;
