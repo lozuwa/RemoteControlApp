@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:ns1="http://schemas.android.com/tools">
     <string-array name="broker_list">
-        <item>tcp://192.168.0.103:1883</item>
+        <item>tcp://192.168.0.104:1883</item>
         <item>tcp://test.mosquittto.org:1883</item>
     </string-array>
     <string-array name="parasite_list">
@@ -12,7 +12,7 @@
         <item>Chilomastix mesnilli</item>
         <item>Entamoeba hartmanni</item>
         <item>Entamoeba histolytica</item>
-        <item>Entamoeba coli</item>
+0        <item>Entamoeba coli</item>
         <item>Endolimax nana</item>
         <item>Enterobius vermicularis</item>
         <item>Fasciola hepatica</item>
