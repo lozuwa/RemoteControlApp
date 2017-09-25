@@ -1,5 +1,6 @@
 package net.igenius.mqttdemo;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
+import android.os.Vibrator;
 
 import net.igenius.mqttservice.MQTTServiceCommand;
 
@@ -24,7 +26,7 @@ import java.io.UnsupportedEncodingException;
 
 public class Controller extends AppCompatActivity  implements AdapterView.OnItemSelectedListener{
 
-    /** Variables and instances */
+    /*** Variables and instances */
     /** UI Elements */
     public ImageButton right;
     public ImageButton left;
@@ -36,27 +38,34 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
     public ImageButton picButtonDefocused;
     public Switch switchLed;
     public Spinner parasiteSpinner;
+    /** Vibrate */
+    public Vibrator vibrator;
 
-    /** Constant strings */
+    /*** Constant strings */
+    /** MQTT Topics */
     public static final String MICROSCOPE_TOPIC = "/microscope";
     public static final String MOVEFIELDX_TOPIC = "/movefieldy";
     public static final String MOVEFIELDY_TOPIC = "/movefieldx";
     public static final String Z_UP_TOPIC = "/zu";
     public static final String Z_DOWN_TOPIC = "/zd";
     public static final String LED_TOPIC = "/led";
-
+    /** Holder variables */
     public static String CHOSEN_PARASITE = "";
 
-    /** Constructor */
+    /*** Constructor */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         /** Content */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_controller);
 
+        /** Define orientation */
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        /** UI Elements */
+        /** Vibrator */
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        /** Instantiate UI Elements */
         right = (ImageButton) findViewById(R.id.right);
         left = (ImageButton) findViewById(R.id.left);
         down = (ImageButton) findViewById(R.id.down);
@@ -64,7 +73,6 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
         zUp = (ImageButton) findViewById(R.id.zUp);
         zDown = (ImageButton) findViewById(R.id.zDown);
         picButton = (ImageButton) findViewById(R.id.picButton);
-        picButtonDefocused = (ImageButton) findViewById(R.id.picButtonDefocused);
         switchLed = (Switch) findViewById(R.id.switchLed);
         parasiteSpinner = (Spinner) findViewById(R.id.spinnerParasite);
         parasiteSpinner.setOnItemSelectedListener(this);
@@ -73,6 +81,16 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
                                                                             android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         parasiteSpinner.setAdapter(adapter);
+
+        /** Backgrounds */
+        right.setBackground(getResources().getDrawable(R.drawable.curvebutton));
+        left.setBackground(getResources().getDrawable(R.drawable.curvebutton));
+        down.setBackground(getResources().getDrawable(R.drawable.curvebutton));
+        up.setBackground(getResources().getDrawable(R.drawable.curvebutton));
+        zDown.setBackground(getResources().getDrawable(R.drawable.curvebutton));
+        zUp.setBackground(getResources().getDrawable(R.drawable.curvebutton));
+        parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebutton));
+        picButton.setBackground(getResources().getDrawable(R.drawable.camera));
 
         /** UI Callbacks */
         /*right.setOnTouchListener(new OnSwipeTouchListener(Controller.this) {
@@ -97,13 +115,19 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
             }
         });*/
 
+
         left.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     publishMessage(MOVEFIELDX_TOPIC, "0");
+                    left.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 }
-                else {
+                else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
+                    left.setBackground(getResources().getDrawable(R.drawable.curvebutton));
+                }
+                else{
+
                 }
                 return true;
             }
@@ -114,8 +138,13 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     publishMessage(MOVEFIELDX_TOPIC, "1");
+                    right.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 }
-                else {
+                else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
+                    right.setBackground(getResources().getDrawable(R.drawable.curvebutton));
+                }
+                else{
+
                 }
                 return true;
             }
@@ -126,8 +155,13 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     publishMessage(MOVEFIELDY_TOPIC, "1");
+                    up.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 }
-                else {
+                else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
+                    up.setBackground(getResources().getDrawable(R.drawable.curvebutton));
+                }
+                else{
+
                 }
                 return true;
             }
@@ -138,8 +172,13 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     publishMessage(MOVEFIELDY_TOPIC, "0");
+                    down.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 }
-                else {
+                else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
+                    down.setBackground(getResources().getDrawable(R.drawable.curvebutton));
+                }
+                else{
+
                 }
                 return true;
             }
@@ -151,9 +190,11 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     String payload = "1";
                     publishMessage(Z_UP_TOPIC, payload);
+                    zUp.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     String payload = "2";
                     publishMessage(Z_UP_TOPIC, payload);
+                    zUp.setBackground(getResources().getDrawable(R.drawable.curvebutton));
                 }
                 return true;
             }
@@ -165,9 +206,11 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     String payload = "1";
                     publishMessage(Z_DOWN_TOPIC, payload);
+                    zDown.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
                     String payload = "2";
                     publishMessage(Z_DOWN_TOPIC, payload);
+                    zDown.setBackground(getResources().getDrawable(R.drawable.curvebutton));
                 }
                 return true;
             }
@@ -188,25 +231,18 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    String payload = "pic;" + CHOSEN_PARASITE;
-                    publishMessage(MICROSCOPE_TOPIC, payload);
+                    if (CHOSEN_PARASITE.equals("Seleccionar")) {
+                        showToast("Nombre no permitido");
+                        vibrator.vibrate(500);
+                    }
+                    else {
+                        String payload = "pic;" + CHOSEN_PARASITE;
+                        publishMessage(MICROSCOPE_TOPIC, payload);
+                        picButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
+                    }
                 }
                 else{
-
-                }
-                return true;
-            }
-        });
-
-        picButtonDefocused.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    String payload = "picDefocused;" + CHOSEN_PARASITE;
-                    publishMessage(MICROSCOPE_TOPIC, payload);
-                }
-                else {
-
+                    picButton.setBackground(getResources().getDrawable(R.drawable.camera));
                 }
                 return true;
             }
@@ -236,6 +272,63 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
         Spinner spinner = (Spinner) adapterView;
         if(spinner.getId() == R.id.spinnerParasite) {
             CHOSEN_PARASITE = adapterView.getItemAtPosition(position).toString();
+            if (CHOSEN_PARASITE.equals("Seleccionar")) {
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.spinnerseleccionar));
+            }
+            else if (CHOSEN_PARASITE.equals("Ascaris lumbricoides")) {
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Blastocystis hominis")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Chilomastix mesnilli")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Entamoeba hartmanni")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Entamoeba histolytica")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Entamoeba coli")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Endolimax nana")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Enterobius vermicularis")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Fasciola hepatica")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Giardia lamblia")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Hymenolepis diminuta")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Hymenolepis nana")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Iodamoeba butschilii")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Strongyloides estercoralis")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Taenia spp.")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Trichiris trichuris")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else if (CHOSEN_PARASITE.equals("Uncinaria spp.")){
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
+            }
+            else {
+                parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebutton));
+            }
             //showToast(CHOSEN_PARASITE);
         }
         else {

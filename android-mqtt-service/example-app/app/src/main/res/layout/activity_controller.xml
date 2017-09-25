@@ -1,106 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     tools:context="net.igenius.mqttdemo.Controller">
 
     <Spinner
         android:id="@+id/spinnerParasite"
-        android:layout_width="350dp"
-        android:layout_height="30dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/picButton"
+        android:layout_marginRight="8dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        app:layout_constraintHorizontal_bias="0.49" />
 
     <ImageButton
         android:id="@+id/picButton"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="200dp"
+        android:layout_height="0dp"
         android:src="@drawable/ic_photo_camera_black_24dp"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/picButtonDefocused"
-        android:layout_toStartOf="@+id/picButtonDefocused"
-        android:layout_marginRight="19dp"
-        android:layout_marginEnd="19dp" />
-
-    <ImageButton
-        android:id="@+id/picButtonDefocused"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/ic_photo_camera_black_24dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/right"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="11dp"
+        android:layout_marginBottom="23dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="7dp"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintLeft_toRightOf="@+id/switchLed"
+        android:layout_marginLeft="8dp" />
 
     <Switch
         android:id="@+id/switchLed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:checked="false"
-        android:text="Led"
-        android:layout_marginLeft="32dp"
+        android:text="Luz"
         android:layout_marginStart="32dp"
-        android:layout_alignBottom="@+id/picButton"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="19dp" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerParasite"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/up"
+        app:layout_constraintVertical_bias="0.454"
+        android:layout_marginLeft="35dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <ImageButton
         android:id="@+id/up"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="0dp"
+        android:layout_height="105dp"
         android:src="@drawable/ic_arrow_upward_black_24dp"
         android:text="Button"
-        android:layout_alignTop="@+id/down"
-        android:layout_toLeftOf="@+id/right"
-        android:layout_toStartOf="@+id/right" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/down"
+        app:layout_constraintRight_toRightOf="@+id/down"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintLeft_toLeftOf="@+id/down"
+        app:layout_constraintHorizontal_bias="1.0" />
 
     <ImageButton
         android:id="@+id/down"
         android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_height="0dp"
         android:src="@drawable/ic_arrow_downward_black_24dp"
         android:text="Button"
-        android:layout_alignBottom="@+id/picButton"
-        android:layout_centerHorizontal="true" />
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="165dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/zDown"
+        android:layout_marginLeft="165dp"
+        app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
         android:id="@+id/left"
-        android:layout_width="200dp"
-        android:layout_height="225dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:src="@drawable/ic_arrow_back_black_24dp"
         android:text="Button"
-        android:layout_alignParentBottom="true" />
+        app:layout_constraintRight_toLeftOf="@+id/down"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="15dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/up"
+        android:layout_marginRight="15dp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/right"
-        android:layout_width="200dp"
-        android:layout_height="225dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:src="@drawable/ic_arrow_forward_black_24dp"
         android:text="Button"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@+id/zDown"
-        android:layout_toStartOf="@+id/zDown" />
+        app:layout_constraintRight_toLeftOf="@+id/zUp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="13dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toTopOf="@+id/zUp"
+        app:layout_constraintLeft_toRightOf="@+id/down"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="13dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/zUp"
         android:layout_width="150dp"
         android:layout_height="105dp"
         android:src="@drawable/ic_arrow_upward_black_24dp"
-        android:layout_alignTop="@+id/right"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/zDown"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="15dp" />
 
     <ImageButton
         android:id="@+id/zDown"
-        android:layout_width="150dp"
+        android:layout_width="0dp"
         android:layout_height="105dp"
         android:src="@drawable/ic_arrow_downward_black_24dp"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/XYController"
-        android:layout_marginLeft="13dp"
-        android:layout_marginStart="13dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/zUp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/zUp" />
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
