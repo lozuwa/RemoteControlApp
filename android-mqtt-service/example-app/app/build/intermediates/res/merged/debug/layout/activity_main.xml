@@ -9,11 +9,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <Spinner
-        android:id="@+id/spinnerBroker"
-        android:layout_width="200dp"
-        android:layout_height="30dp"
-        android:layout_alignParentLeft="true"/>
+    <EditText
+        android:id="@+id/editText2"
+        android:layout_width="match_parent"
+        android:layout_height= "wrap_content"
+        android:text="192.168.0.104"
+        android:layout_toLeftOf="@+id/brokerButton"/>
 
     <Button
         android:id="@+id/brokerButton"
@@ -21,5 +22,52 @@
         android:layout_height="50dp"
         android:text="Connect"
         android:layout_alignParentRight="true"/>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/brokerButton"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="15dp"
+        android:text="Paciente" />
+
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="match_parent"
+        android:layout_height= "wrap_content"
+        android:text="write name here"
+        android:layout_below="@+id/textView"/>
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editText"
+        android:layout_marginLeft="11dp"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="15dp"
+        android:text="Token" />
+
+    <EditText
+        android:id="@+id/editText1"
+        android:layout_width="match_parent"
+        android:layout_height= "wrap_content"
+        android:text="write token here"
+        android:layout_below="@+id/textView1"/>
+
+    <Spinner
+        android:id="@+id/spinnerBroker"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="113dp" />
 
 </RelativeLayout>

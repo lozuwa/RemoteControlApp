@@ -1,4 +1,4 @@
-#Mon Sep 11 16:54:16 BOT 2017
+#Wed Sep 27 13:20:16 BOT 2017
 file.2=C\:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_874269a8abf9ffd6051b91f83cc935ab449b47f5\\classes.dex
 base.2=C\:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_874269a8abf9ffd6051b91f83cc935ab449b47f5
 file.1=C\:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10\\classes_f085456f9b0b34a087d28b59a5f3405994152687\\classes.dex

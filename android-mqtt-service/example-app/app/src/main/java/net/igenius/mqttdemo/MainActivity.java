@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     /** UI Elements */
     public Spinner spinnerBroker;
     public Button brokerButton;
+    public EditText editText;
 
     /** Constants */
     public static String CHOSEN_BROKER = "";
@@ -98,7 +100,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         /** Content */
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        /** Orientation */
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         /** UI Elements */
         spinnerBroker = (Spinner) findViewById(R.id.spinnerBroker);
@@ -111,9 +115,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerBroker.setAdapter(adapter);
 
+        editText = (EditText) findViewById(R.id.editText);
+
         /** Action callbacks */
         brokerButton.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v){
+                CHOSEN_BROKER = editText.getText().toString();
                 showToast("Connecting to: " + CHOSEN_BROKER);
                 /** MQTT */
                 MQTTService.NAMESPACE = "net.igenius.mqttdemo";
@@ -156,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             CHOSEN_BROKER = adapterView.getItemAtPosition(i).toString();
             showToast(CHOSEN_BROKER);
         }
-        else{
+        else {
         }
     }
 
