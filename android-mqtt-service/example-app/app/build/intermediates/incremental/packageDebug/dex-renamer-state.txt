@@ -1,4 +1,4 @@
-#Mon Oct 02 14:06:32 BOT 2017
+#Mon Oct 02 17:05:32 BOT 2017
 base.0=C\:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_eb2531aa476be647ee553a0625cb8d7f52d99ed0
 renamed.1=classes.dex
 renamed.0=classes2.dex

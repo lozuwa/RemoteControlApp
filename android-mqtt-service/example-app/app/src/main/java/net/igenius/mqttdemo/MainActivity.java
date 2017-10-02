@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
     /** UI Elements */
     public Button connectButton;
+    public Button autofocusButton;
     public EditText pacientEditText;
     public EditText brokerEditText;
 

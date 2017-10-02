@@ -39,7 +39,7 @@ MERGED from [com.android.support:support-compat:25.3.1] C:\Users\HP\.android\bui
 	android:allowBackup
 		ADDED from C:\Users\HP\Dropbox\pfm\Apps\RemoteControllerApp\android-mqtt-service\example-app\app\src\main\AndroidManifest.xml:8:9-35
 	android:icon
-		ADDED from C:\Users\HP\Dropbox\pfm\Apps\RemoteControllerApp\android-mqtt-service\example-app\app\src\main\AndroidManifest.xml:9:9-43
+		ADDED from C:\Users\HP\Dropbox\pfm\Apps\RemoteControllerApp\android-mqtt-service\example-app\app\src\main\AndroidManifest.xml:9:9-40
 	android:theme
 		ADDED from C:\Users\HP\Dropbox\pfm\Apps\RemoteControllerApp\android-mqtt-service\example-app\app\src\main\AndroidManifest.xml:12:9-40
 activity#net.igenius.mqttdemo.MainActivity

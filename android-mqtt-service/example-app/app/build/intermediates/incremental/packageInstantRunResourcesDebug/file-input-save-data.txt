@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Oct 02 14:06:29 BOT 2017
+#Mon Oct 02 17:05:12 BOT 2017
 210.set=ANDROID_RESOURCE
 282.file=C\:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\drawable-v21\\avd_show_password_2.xml
 14.set=ANDROID_RESOURCE

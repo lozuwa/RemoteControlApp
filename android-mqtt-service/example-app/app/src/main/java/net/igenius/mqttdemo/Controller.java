@@ -1,5 +1,6 @@
 package net.igenius.mqttdemo;
 
+import android.bluetooth.le.ScanRecord;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.Color;
@@ -37,6 +38,9 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
     public ImageButton picButton;
     public Switch switchLed;
     public Spinner parasiteSpinner;
+    public ImageButton autofocusButton;
+    public ImageButton screeningButton;
+
     /** Vibrate */
     public Vibrator vibrator;
 
@@ -48,6 +52,8 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
     public static final String Z_UP_TOPIC = "/zu";
     public static final String Z_DOWN_TOPIC = "/zd";
     public static final String LED_TOPIC = "/led";
+    public static final String AUTOFOCUS_TOPIC = "/autofocus";
+    public static final String AUTOMATIC_TOPIC = "/automatic";
     /** Holder variables */
     public static String CHOSEN_PARASITE = "";
 
@@ -72,9 +78,12 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
         zUp = (ImageButton) findViewById(R.id.zUp);
         zDown = (ImageButton) findViewById(R.id.zDown);
         picButton = (ImageButton) findViewById(R.id.picButton);
+        autofocusButton = (ImageButton) findViewById(R.id.autofocusButton);
+        screeningButton = (ImageButton) findViewById(R.id.screeningButton);
         switchLed = (Switch) findViewById(R.id.switchLed);
         parasiteSpinner = (Spinner) findViewById(R.id.spinnerParasite);
         parasiteSpinner.setOnItemSelectedListener(this);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                                                                             R.array.parasite_list,
                                                                             android.R.layout.simple_spinner_item);
@@ -90,6 +99,8 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
         zUp.setBackground(getResources().getDrawable(R.drawable.curvebutton));
         parasiteSpinner.setBackground(getResources().getDrawable(R.drawable.curvebutton));
         picButton.setBackground(getResources().getDrawable(R.drawable.camera));
+        autofocusButton.setBackground(getResources().getDrawable(R.drawable.camera));
+        screeningButton.setBackground(getResources().getDrawable(R.drawable.camera));
 
         /** UI Callbacks */
         left.setOnTouchListener(new View.OnTouchListener() {
@@ -219,6 +230,36 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
                 }
                 else{
                     picButton.setBackground(getResources().getDrawable(R.drawable.camera));
+                }
+                return true;
+            }
+        });
+
+        autofocusButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    String payload = "start";
+                    publishMessage(AUTOFOCUS_TOPIC, payload);
+                    autofocusButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
+                }
+                else {
+                    autofocusButton.setBackground(getResources().getDrawable(R.drawable.camera));
+                }
+                return true;
+            }
+        });
+
+        screeningButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    String payload = "start";
+                    publishMessage(AUTOMATIC_TOPIC, payload);
+                    screeningButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
+                }
+                else {
+                    screeningButton.setBackground(getResources().getDrawable(R.drawable.camera));
                 }
                 return true;
             }
