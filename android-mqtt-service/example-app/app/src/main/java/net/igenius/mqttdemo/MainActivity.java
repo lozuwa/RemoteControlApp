@@ -26,7 +26,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.UUID;
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity {
 
     /*** Variables and instances */
     /** MQTT Variables */
@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         }
     };
-    //String server = "tcp://192.168.3.174:1883"; //"ssl://yourserver.com:port";
     public String username = "pfm";
     public String password = "161154029";
     public String clientId = UUID.randomUUID().toString();
@@ -87,12 +86,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public String subscribeTopic = "/random_topic_with_no_intention";
 
     /** UI Elements */
-    public Spinner spinnerBroker;
-    public Button brokerButton;
-    public EditText editText;
+    public Button connectButton;
+    public EditText pacientEditText;
+    public EditText brokerEditText;
 
     /** Constants */
-    public static String CHOSEN_BROKER = "";
+    public static String BROKER = "";
 
     /*** Constructor */
     @Override
@@ -105,28 +104,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         /** UI Elements */
-        spinnerBroker = (Spinner) findViewById(R.id.spinnerBroker);
-        brokerButton = (Button) findViewById(R.id.brokerButton);
-
-        spinnerBroker.setOnItemSelectedListener(this);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                                                                            R.array.broker_list,
-                                                                            android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerBroker.setAdapter(adapter);
-
-        editText = (EditText) findViewById(R.id.editText);
+        connectButton = (Button) findViewById(R.id.ConnectButton);
+        pacientEditText = (EditText) findViewById(R.id.PacientEditText);
+        brokerEditText = (EditText) findViewById(R.id.BrokerEditText);
 
         /** Action callbacks */
-        brokerButton.setOnClickListener( new View.OnClickListener() {
-            public void onClick(View v){
-                CHOSEN_BROKER = editText.getText().toString();
-                showToast("Connecting to: " + CHOSEN_BROKER);
+        connectButton.setOnClickListener( new View.OnClickListener() {
+            public void onClick(View v) {
+                BROKER = brokerEditText.getText().toString();
+                showToast("Connecting to: " + BROKER);
                 /** MQTT */
                 MQTTService.NAMESPACE = "net.igenius.mqttdemo";
                 MQTTServiceLogger.setLogLevel(MQTTServiceLogger.LogLevel.DEBUG);
                 MQTTServiceCommand.connectAndSubscribe(MainActivity.this,
-                                                        CHOSEN_BROKER,
+                                                        BROKER,
                                                         clientId,
                                                         username,
                                                         password,
@@ -134,7 +125,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                                                         true,
                                                         subscribeTopic);
                 Intent intent = new Intent(MainActivity.this, Controller.class);
-                //intent.putExtra(EXTRA_MESSAGE, message);
                 startActivity(intent);
             }
         });
@@ -153,22 +143,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onPause() {
         super.onPause();
         receiver.unregister(this);
-    }
-
-    /*** Callback spinner */
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        Spinner spinner = (Spinner) adapterView;
-        if(spinner.getId() == R.id.spinnerBroker){
-            CHOSEN_BROKER = adapterView.getItemAtPosition(i).toString();
-            showToast(CHOSEN_BROKER);
-        }
-        else {
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
     }
 
     /*** Support classes */

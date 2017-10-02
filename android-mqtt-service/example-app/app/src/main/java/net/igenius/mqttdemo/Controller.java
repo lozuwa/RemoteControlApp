@@ -35,7 +35,6 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
     public ImageButton zUp;
     public ImageButton zDown;
     public ImageButton picButton;
-    public ImageButton picButtonDefocused;
     public Switch switchLed;
     public Spinner parasiteSpinner;
     /** Vibrate */
@@ -93,29 +92,6 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
         picButton.setBackground(getResources().getDrawable(R.drawable.camera));
 
         /** UI Callbacks */
-        /*right.setOnTouchListener(new OnSwipeTouchListener(Controller.this) {
-            public void onSwipeTop() {
-                publishMessage(MOVEFIELDY_TOPIC, "1");
-                //showToast("Top");
-            }
-
-            public void onSwipeRight() {
-                publishMessage(MOVEFIELDX_TOPIC, "1");
-                //showToast("Right");
-            }
-
-            public void onSwipeLeft() {
-                publishMessage(MOVEFIELDX_TOPIC, "0");
-                //showToast("Left");
-            }
-
-            public void onSwipeBottom() {
-                publishMessage(MOVEFIELDY_TOPIC, "0");
-                //showToast("Bottom");
-            }
-        });*/
-
-
         left.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -154,7 +130,7 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    publishMessage(MOVEFIELDY_TOPIC, "1");
+                    publishMessage(MOVEFIELDY_TOPIC, "0");
                     up.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
@@ -171,7 +147,7 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    publishMessage(MOVEFIELDY_TOPIC, "0");
+                    publishMessage(MOVEFIELDY_TOPIC, "1");
                     down.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
@@ -251,12 +227,18 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
     }
 
     /*** Support methods */
-    /** Show message */
+    /** Show message
+     * @param message: input String that contains the message to be displayed
+     * */
     public void showToast(String message){
         Toast.makeText(Controller.this, message, Toast.LENGTH_SHORT).show();
     }
 
-    /** Publish a message */
+    /*** Publish a message
+     * @param topic: input String that defines the target topic of the mqtt client
+     * @param message: input String that contains a message to be published
+     * @return no return
+     * */
     public void publishMessage(String topic, String message) {
         byte[] encodedPayload = new byte[0];
         try {
@@ -267,6 +249,7 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
         }
     }
 
+    /*** Callback parasite spinner */
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
         Spinner spinner = (Spinner) adapterView;
