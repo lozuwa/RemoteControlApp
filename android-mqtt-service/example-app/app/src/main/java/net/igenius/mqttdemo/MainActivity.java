@@ -87,12 +87,13 @@ public class MainActivity extends AppCompatActivity {
 
     /** UI Elements */
     public Button connectButton;
-    public Button autofocusButton;
+    public Button startButton;
     public EditText pacientEditText;
     public EditText brokerEditText;
 
     /** Constants */
-    public static String BROKER = "";
+    public static String BROKER;
+    public static final String MICROSCOPE_TOPIC = "/microscope";
 
     /*** Constructor */
     @Override
@@ -106,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
         /** UI Elements */
         connectButton = (Button) findViewById(R.id.ConnectButton);
+        startButton = (Button) findViewById(R.id.startButton);
         pacientEditText = (EditText) findViewById(R.id.PacientEditText);
         brokerEditText = (EditText) findViewById(R.id.BrokerEditText);
 
@@ -113,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
         connectButton.setOnClickListener( new View.OnClickListener() {
             public void onClick(View v) {
                 BROKER = brokerEditText.getText().toString();
+                final int qos = 2;
                 showToast("Connecting to: " + BROKER);
                 /** MQTT */
                 MQTTService.NAMESPACE = "net.igenius.mqttdemo";
@@ -122,34 +125,57 @@ public class MainActivity extends AppCompatActivity {
                                                         clientId,
                                                         username,
                                                         password,
-                                                        0,
+                                                        qos,
                                                         true,
                                                         subscribeTopic);
+            }
+        });
+
+        startButton.setOnClickListener( new View.OnClickListener(){
+            public void onClick(View v) {
+                /** Create respective folder */
+                final String FOLDER_NAME = pacientEditText.getText().toString();
+                publishMessage(MICROSCOPE_TOPIC, "createFolder;"+FOLDER_NAME);
+                /** Start remote controller */
                 Intent intent = new Intent(MainActivity.this, Controller.class);
                 startActivity(intent);
             }
         });
-
     }
 
-    /*** Callback on resume */
+    /** Callback on resume */
     @Override
     protected void onResume() {
         super.onResume();
         receiver.register(this);
     }
 
-    /*** Callback on pause */
+    /** Callback on pause */
     @Override
     protected void onPause() {
         super.onPause();
         receiver.unregister(this);
     }
 
-    /*** Support classes */
+    /** Support classes */
     /** Show toast */
     public void showToast(String message){
         Toast.makeText(MainActivity.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    /*** Publish a message
+     * @param topic: input String that defines the target topic of the mqtt client
+     * @param message: input String that contains a message to be published
+     * @return no return
+     * */
+    public void publishMessage(String topic, String message) {
+        byte[] encodedPayload = new byte[0];
+        try {
+            encodedPayload = message.getBytes("UTF-8");
+            MQTTServiceCommand.publish(MainActivity.this, topic, encodedPayload, 2);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
     }
 
 }

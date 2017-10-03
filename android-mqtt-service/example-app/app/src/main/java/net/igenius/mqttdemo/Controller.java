@@ -223,7 +223,7 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
                         vibrator.vibrate(500);
                     }
                     else {
-                        String payload = "pic;" + CHOSEN_PARASITE;
+                        String payload = "takePicture;" + CHOSEN_PARASITE;
                         publishMessage(MICROSCOPE_TOPIC, payload);
                         picButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
                     }

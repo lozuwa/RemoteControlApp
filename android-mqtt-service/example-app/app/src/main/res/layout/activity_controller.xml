@@ -40,7 +40,7 @@
             android:layout_marginRight="7dp"
             app:layout_constraintLeft_toRightOf="@+id/switchLed"
             android:layout_marginLeft="8dp"
-            app:layout_constraintHorizontal_bias="0.46"
+            app:layout_constraintHorizontal_bias="0.531"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginTop="8dp"
             app:layout_constraintVertical_bias="0.0" />
@@ -141,10 +141,7 @@
             app:layout_constraintBottom_toTopOf="@+id/zDown"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginBottom="15dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintTop_toBottomOf="@+id/picButton"
-            app:layout_constraintVertical_bias="0.48000002" />
+            android:layout_marginRight="0dp" />
 
         <ImageButton
             android:id="@+id/zDown"
@@ -161,24 +158,27 @@
         <ImageButton
             android:id="@+id/autofocusButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:src="@drawable/icon_human"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="24dp"
             app:layout_constraintLeft_toRightOf="@+id/picButton"
-            android:layout_marginLeft="37dp"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/zUp"
+            android:layout_marginLeft="24dp"
             app:layout_constraintRight_toLeftOf="@+id/screeningButton"
-            android:layout_marginRight="8dp" />
+            android:layout_marginRight="2dp" />
 
         <ImageButton
             android:id="@+id/screeningButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/icon_robot"
-            android:layout_marginRight="0dp"
-            app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginBottom="32dp"
-            app:layout_constraintBottom_toTopOf="@+id/zUp" />
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/zUp"
+            app:layout_constraintTop_toTopOf="@+id/autofocusButton"
+            android:layout_marginTop="0dp"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginRight="8dp"
+            app:layout_constraintRight_toRightOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>
