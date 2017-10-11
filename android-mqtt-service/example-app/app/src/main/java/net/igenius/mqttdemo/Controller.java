@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -46,14 +47,13 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
 
     /*** Constant strings */
     /** MQTT Topics */
-    public static final String MICROSCOPE_TOPIC = "/microscope";
     public static final String MOVEFIELDX_TOPIC = "/movefieldy";
     public static final String MOVEFIELDY_TOPIC = "/movefieldx";
     public static final String Z_UP_TOPIC = "/zu";
     public static final String Z_DOWN_TOPIC = "/zd";
     public static final String LED_TOPIC = "/led";
-    public static final String AUTOFOCUS_TOPIC = "/autofocus";
-    public static final String AUTOMATIC_TOPIC = "/automatic";
+    public static final String AUTOFOCUS_APP_TOPIC = "/autofocusApp";
+    public static final String CAMERA_APP_TOPIC = "/cameraApp";
     /** Holder variables */
     public static String CHOSEN_PARASITE = "";
 
@@ -66,6 +66,9 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
 
         /** Define orientation */
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        /** Keep screen on */
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         /** Vibrator */
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -217,14 +220,14 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
         picButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    if (CHOSEN_PARASITE.equals("Seleccionar")) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                    if (CHOSEN_PARASITE.equals("Seleccionar")){
                         showToast("Nombre no permitido");
                         vibrator.vibrate(500);
                     }
                     else {
-                        String payload = "takePicture;" + CHOSEN_PARASITE;
-                        publishMessage(MICROSCOPE_TOPIC, payload);
+                        String payload = "takePictureRemoteController;" + CHOSEN_PARASITE;
+                        publishMessage(CAMERA_APP_TOPIC, payload);
                         picButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
                     }
                 }
@@ -240,7 +243,7 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     String payload = "start";
-                    publishMessage(AUTOFOCUS_TOPIC, payload);
+                    publishMessage(AUTOFOCUS_APP_TOPIC, payload);
                     autofocusButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
                 }
                 else {
@@ -255,7 +258,7 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     String payload = "start";
-                    publishMessage(AUTOMATIC_TOPIC, payload);
+                    publishMessage(CAMERA_APP_TOPIC, payload);
                     screeningButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
                 }
                 else {

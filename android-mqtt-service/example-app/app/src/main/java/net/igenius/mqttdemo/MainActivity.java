@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     /** Constants */
     public static String BROKER;
-    public static final String MICROSCOPE_TOPIC = "/microscope";
+    public static final String CAMERA_APP_TOPIC = "/cameraApp";
 
     /*** Constructor */
     @Override
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 /** Create respective folder */
                 final String FOLDER_NAME = pacientEditText.getText().toString();
-                publishMessage(MICROSCOPE_TOPIC, "createFolder;"+FOLDER_NAME);
+                publishMessage(CAMERA_APP_TOPIC, "createFolder;"+FOLDER_NAME);
                 /** Start remote controller */
                 Intent intent = new Intent(MainActivity.this, Controller.class);
                 startActivity(intent);
