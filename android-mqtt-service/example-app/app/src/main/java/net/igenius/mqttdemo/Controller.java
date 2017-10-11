@@ -111,6 +111,8 @@ public class Controller extends AppCompatActivity  implements AdapterView.OnItem
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     publishMessage(MOVEFIELDX_TOPIC, "0");
+                    String payload = "1";
+                    publishMessage(Z_UP_TOPIC, payload);
                     left.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
