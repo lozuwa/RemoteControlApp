@@ -7,11 +7,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -87,8 +85,9 @@ public class MainActivity extends AppCompatActivity {
 
     /** UI Elements */
     public Button connectButton;
-    public Button startButton;
-    public EditText pacientEditText;
+    public Button manualButton;
+    public Button automaticButton;
+    public EditText patientEditText;
     public EditText brokerEditText;
 
     /** Constants */
@@ -105,11 +104,17 @@ public class MainActivity extends AppCompatActivity {
         /** Orientation */
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
+        /** Keep screen turned on */
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+
         /** UI Elements */
         connectButton = (Button) findViewById(R.id.ConnectButton);
-        startButton = (Button) findViewById(R.id.startButton);
-        pacientEditText = (EditText) findViewById(R.id.PacientEditText);
+        manualButton = (Button) findViewById(R.id.startManualButton);
+        automaticButton = (Button) findViewById(R.id.startAutomaticButton);
+        patientEditText = (EditText) findViewById(R.id.PatientEditText);
         brokerEditText = (EditText) findViewById(R.id.BrokerEditText);
+
+        /** Initial states */
 
         /** Action callbacks */
         connectButton.setOnClickListener( new View.OnClickListener() {
@@ -131,28 +136,49 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        startButton.setOnClickListener( new View.OnClickListener(){
+        manualButton.setOnClickListener( new View.OnClickListener(){
             public void onClick(View v) {
                 /** Create respective folder */
-                final String FOLDER_NAME = pacientEditText.getText().toString();
-                publishMessage(CAMERA_APP_TOPIC, "createFolder;"+FOLDER_NAME);
+                /*final String FOLDER_NAME = patientEditText.getText().toString();
+                if (FOLDER_NAME.isEmpty() || (FOLDER_NAME.length() < 5)){
+                    showToast("Patient's name is empty");
+                }
+                else{
+                    //publishMessage(CAMERA_APP_TOPIC, "createFolder;"+FOLDER_NAME);
+                }*/
                 /** Start remote controller */
-                Intent intent = new Intent(MainActivity.this, Controller.class);
+                Intent intent = new Intent(MainActivity.this, ManualController.class);
                 startActivity(intent);
+            }
+        });
+
+        automaticButton.setOnClickListener( new View.OnClickListener(){
+            public void onClick(View v) {
+                /** Create respective folder */
+                final String FOLDER_NAME = patientEditText.getText().toString();
+                if (FOLDER_NAME.isEmpty() || (FOLDER_NAME.length() < 5)){
+                    showToast("Patient's name is empty");
+                }
+                else {
+                    //publishMessage(CAMERA_APP_TOPIC, "createFolder;" + FOLDER_NAME);
+                    /** Start remote controller */
+                    //Intent intent = new Intent(MainActivity.this, LoadSample.class);
+                    //startActivity(intent);
+                }
             }
         });
     }
 
     /** Callback on resume */
     @Override
-    protected void onResume() {
+    protected void onResume(){
         super.onResume();
         receiver.register(this);
     }
 
     /** Callback on pause */
     @Override
-    protected void onPause() {
+    protected void onPause(){
         super.onPause();
         receiver.unregister(this);
     }

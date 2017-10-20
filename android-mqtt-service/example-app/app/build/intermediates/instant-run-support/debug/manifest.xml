@@ -29,10 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="net.igenius.mqttdemo.Controller"
-            android:label="@string/title_activity_controller"
-            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name="net.igenius.mqttdemo.LoadSample" />
+        <activity android:name="net.igenius.mqttdemo.ManualController" />
+        <activity android:name="net.igenius.mqttdemo.Controller" />
 
         <service
             android:name="net.igenius.mqttservice.MQTTService"

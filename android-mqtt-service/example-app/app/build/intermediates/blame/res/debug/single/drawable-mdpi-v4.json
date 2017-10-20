@@ -36,12 +36,12 @@
         "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-mdpi-v4\\abc_list_focused_holo.9.png"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png"
-    },
-    {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_textfield_default_mtrl_alpha.9.png",
         "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-mdpi-v4\\abc_textfield_default_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-mdpi-v4\\notification_bg_normal_pressed.9.png"
     },
     {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\notification_bg_low_normal.9.png",
@@ -54,6 +54,10 @@
     {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png",
         "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-mdpi-v4\\abc_textfield_activated_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\cling.png",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\db9cbca1174bfdd72259282bde872cee8dc319fa\\output\\res\\drawable-mdpi-v4\\cling.png"
     },
     {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_switch_track_mtrl_alpha.9.png",
@@ -74,6 +78,10 @@
     {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png",
         "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-mdpi-v4\\abc_scrubber_primary_mtrl_alpha.9.png"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\hand.png",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\db9cbca1174bfdd72259282bde872cee8dc319fa\\output\\res\\drawable-mdpi-v4\\hand.png"
     },
     {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_textfield_search_default_mtrl_alpha.9.png",
@@ -106,6 +114,14 @@
     {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_ic_star_half_black_36dp.png",
         "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-mdpi-v4\\abc_ic_star_half_black_36dp.png"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\btn_cling_pressed.9.png",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\db9cbca1174bfdd72259282bde872cee8dc319fa\\output\\res\\drawable-mdpi-v4\\btn_cling_pressed.9.png"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\btn_cling_normal.9.png",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\db9cbca1174bfdd72259282bde872cee8dc319fa\\output\\res\\drawable-mdpi-v4\\btn_cling_normal.9.png"
     },
     {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-mdpi-v4\\abc_list_divider_mtrl_alpha.9.png",

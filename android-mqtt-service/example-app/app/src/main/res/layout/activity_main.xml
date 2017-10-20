@@ -13,7 +13,7 @@
         android:id="@+id/BrokerEditText"
         android:layout_width="match_parent"
         android:layout_height= "wrap_content"
-        android:text="tcp://192.168.0.104:1883"
+        android:text="tcp://192.168.0.105:1883"
         android:layout_toLeftOf="@+id/ConnectButton"/>
 
     <Button
@@ -36,7 +36,7 @@
         android:text="Paciente" />
 
     <EditText
-        android:id="@+id/PacientEditText"
+        android:id="@+id/PatientEditText"
         android:layout_width="match_parent"
         android:layout_height= "wrap_content"
         android:hint="write name here"
@@ -50,7 +50,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/PacientEditText"
+        android:layout_below="@+id/PatientEditText"
         android:layout_marginLeft="11dp"
         android:layout_marginStart="11dp"
         android:layout_marginTop="15dp"
@@ -64,11 +64,26 @@
         android:layout_below="@+id/textView1"/>
 
     <Button
-        android:id="@+id/startButton"
+        android:id="@+id/startManualButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start"
+        android:text="Manual"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_alignStart="@+id/textView1"
+        android:layout_marginLeft="27dp"
+        android:layout_marginStart="27dp" />
+
+    <Button
+        android:id="@+id/startAutomaticButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Automatic"
+        android:layout_alignBaseline="@+id/startManualButton"
+        android:layout_alignBottom="@+id/startManualButton"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="62dp"
+        android:layout_marginEnd="62dp" />
 
 </RelativeLayout>

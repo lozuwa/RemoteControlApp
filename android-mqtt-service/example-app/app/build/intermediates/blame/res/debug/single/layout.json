@@ -64,6 +64,10 @@
         "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\layout\\abc_action_bar_title_item.xml"
     },
     {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\handy.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\db9cbca1174bfdd72259282bde872cee8dc319fa\\output\\res\\layout\\handy.xml"
+    },
+    {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_navigation_item_header.xml",
         "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\layout\\design_navigation_item_header.xml"
     },
@@ -96,8 +100,16 @@
         "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\layout\\design_layout_snackbar_include.xml"
     },
     {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_manual_controller.xml",
+        "source": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\src\\main\\res\\layout\\activity_manual_controller.xml"
+    },
+    {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_action.xml",
         "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\layout\\notification_action.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_load_sample.xml",
+        "source": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\src\\main\\res\\layout\\activity_load_sample.xml"
     },
     {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\notification_template_media.xml",
@@ -152,6 +164,10 @@
         "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\layout\\abc_action_menu_item_layout.xml"
     },
     {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\view_custom_button.xml",
+        "source": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\src\\main\\res\\layout\\view_custom_button.xml"
+    },
+    {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\select_dialog_multichoice_material.xml",
         "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\layout\\select_dialog_multichoice_material.xml"
     },
@@ -180,6 +196,10 @@
         "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\layout\\abc_search_dropdown_item_icons_2line.xml"
     },
     {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\showcase_button.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\db9cbca1174bfdd72259282bde872cee8dc319fa\\output\\res\\layout\\showcase_button.xml"
+    },
+    {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_text_input_password_icon.xml",
         "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\layout\\design_text_input_password_icon.xml"
     },
@@ -192,12 +212,12 @@
         "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\layout\\support_simple_spinner_dropdown_item.xml"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_text.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\layout\\design_layout_tab_text.xml"
-    },
-    {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\abc_list_menu_item_radio.xml",
         "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\layout\\abc_list_menu_item_radio.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\design_layout_tab_text.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\layout\\design_layout_tab_text.xml"
     },
     {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout\\activity_controller.xml",

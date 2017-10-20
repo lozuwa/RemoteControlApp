@@ -48,8 +48,9 @@ import static net.igenius.mqttservice.MQTTServiceCommand.getBroadcastAction;
 public class MQTTService extends BackgroundService implements Runnable, MqttCallbackExtended {
 
     public static String NAMESPACE = "net.igenius.mqtt";
-    public static int KEEP_ALIVE_INTERVAL = 60; //measured in seconds
+    public static int KEEP_ALIVE_INTERVAL = 15; //measured in seconds
     public static int CONNECT_TIMEOUT = 30; //measured in seconds
+    public static boolean CLEAN_SESSION = false; // clean the session when reconnecting
 
     private BlockingQueue<Intent> mIntents = new LinkedBlockingQueue<>();
     private MqttClient mClient;
@@ -215,7 +216,7 @@ public class MQTTService extends BackgroundService implements Runnable, MqttCall
                     connectOptions.setPassword(password.toCharArray());
                 }
                 connectOptions.setCleanSession(true);
-                connectOptions.setAutomaticReconnect(true);
+                connectOptions.setAutomaticReconnect(CLEAN_SESSION);
                 connectOptions.setKeepAliveInterval(KEEP_ALIVE_INTERVAL);
                 connectOptions.setConnectionTimeout(CONNECT_TIMEOUT);
 
