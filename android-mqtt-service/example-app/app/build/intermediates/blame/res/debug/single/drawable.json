@@ -188,6 +188,10 @@
         "source": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\src\\main\\res\\drawable\\ic_lock_black_24dp.png"
     },
     {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_exit_to_app_black_24dp.png",
+        "source": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\src\\main\\res\\drawable\\ic_exit_to_app_black_24dp.png"
+    },
+    {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable\\ic_stop_black_24dp.png",
         "source": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\src\\main\\res\\drawable\\ic_stop_black_24dp.png"
     },

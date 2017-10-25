@@ -21,7 +21,7 @@ import net.igenius.mqttservice.MQTTServiceReceiver;
 
 import java.io.UnsupportedEncodingException;
 
-public class ManualController extends AppCompatActivity  implements AdapterView.OnItemSelectedListener{
+public class ManualController extends AppCompatActivity  implements AdapterView.OnItemSelectedListener {
 
     /*** Variables and instances */
     /** UI Elements */
@@ -32,10 +32,10 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
     public ImageButton zUp;
     public ImageButton zDown;
     public ImageButton picButton;
-    public Switch switchLed;
     public Spinner parasiteSpinner;
     public ImageButton autofocusButton;
     public ImageButton homeButton;
+    public ImageButton exitButton;
 
     /** Vibrate */
     public Vibrator vibrator;
@@ -84,10 +84,9 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
         picButton = (ImageButton) findViewById(R.id.picButton);
         autofocusButton = (ImageButton) findViewById(R.id.autofocusButton);
         homeButton = (ImageButton) findViewById(R.id.homeButton);
-        switchLed = (Switch) findViewById(R.id.switchLed);
+        exitButton = (ImageButton) findViewById(R.id.exitButton);
         parasiteSpinner = (Spinner) findViewById(R.id.spinnerParasite);
         parasiteSpinner.setOnItemSelectedListener(this);
-
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.parasite_list,
                 android.R.layout.simple_spinner_item);
@@ -95,7 +94,6 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
         parasiteSpinner.setAdapter(adapter);
 
         /** Initial states */
-        switchLed.setChecked(true);
 
         /** Backgrounds */
         right.setBackground(getResources().getDrawable(R.drawable.curvebutton));
@@ -108,6 +106,7 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
         picButton.setBackground(getResources().getDrawable(R.drawable.camera));
         autofocusButton.setBackground(getResources().getDrawable(R.drawable.camera));
         homeButton.setBackground(getResources().getDrawable(R.drawable.camera));
+        exitButton.setBackground(getResources().getDrawable(R.drawable.camera));
 
         /** UI Callbacks */
         left.setOnTouchListener(new View.OnTouchListener() {
@@ -214,17 +213,6 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
             }
         });
 
-        switchLed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    publishMessage(LED_TOPIC, "1");
-                }
-                else {
-                    publishMessage(LED_TOPIC, "0");
-                }
-            }
-        });
-
         picButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -250,11 +238,10 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    String payload = "start";
+                    String payload = "requestService;autofocus";
                     publishMessage(AUTOFOCUS_APP_TOPIC, payload);
                     autofocusButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
-                }
-                else {
+                } else {
                     autofocusButton.setBackground(getResources().getDrawable(R.drawable.camera));
                 }
                 return true;
@@ -268,9 +255,22 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
                     String payload = "home;home";
                     publishMessage(EXTRA_ACTIONS_TOPIC, payload);
                     homeButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
-                }
-                else {
+                } else {
                     homeButton.setBackground(getResources().getDrawable(R.drawable.camera));
+                }
+                return true;
+            }
+        });
+
+        exitButton.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN) {
+                    String payload = "exit;exit";
+                    publishMessage(CAMERA_APP_TOPIC, payload);
+                    exitButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
+                } else {
+                    exitButton.setBackground(getResources().getDrawable(R.drawable.camera));
                 }
                 return true;
             }

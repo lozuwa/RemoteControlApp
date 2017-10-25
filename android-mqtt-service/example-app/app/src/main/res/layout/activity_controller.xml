@@ -8,6 +8,7 @@
     android:background="@color/colorPrimary"
     tools:context="net.igenius.mqttdemo.Controller">
 
+    <!--
     <Switch
         android:id="@+id/switchLed"
         android:layout_width="wrap_content"
@@ -19,6 +20,7 @@
         app:layout_constraintBottom_toTopOf="@+id/up"
         android:layout_marginLeft="35dp"
         app:layout_constraintLeft_toLeftOf="parent" />
+    -->
 
     <ImageButton
         android:id="@+id/up"

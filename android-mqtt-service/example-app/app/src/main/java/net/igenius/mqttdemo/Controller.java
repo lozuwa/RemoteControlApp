@@ -46,7 +46,6 @@ public class Controller extends AppCompatActivity implements OnShowcaseEventList
     public ImageButton down;
     public ImageButton zUp;
     public ImageButton zDown;
-    public Switch switchLed;
     public Button ready;
 
     /** Showcase */
@@ -99,11 +98,10 @@ public class Controller extends AppCompatActivity implements OnShowcaseEventList
         up = (ImageButton) findViewById(R.id.up);
         zUp = (ImageButton) findViewById(R.id.zUp);
         zDown = (ImageButton) findViewById(R.id.zDown);
-        switchLed = (Switch) findViewById(R.id.switchLed);
         ready = (Button) findViewById(R.id.ready);
 
         /** Initial states */
-        switchLed.setChecked(true);
+
         /** Showcase first button */
         sv = new ShowcaseView.Builder(Controller.this)
                 .withMaterialShowcase()
@@ -225,17 +223,6 @@ public class Controller extends AppCompatActivity implements OnShowcaseEventList
                     zDown.setBackground(getResources().getDrawable(R.drawable.curvebutton));
                 }
                 return true;
-            }
-        });
-
-        switchLed.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked) {
-                    publishMessage(LED_TOPIC, "1");
-                }
-                else {
-                    publishMessage(LED_TOPIC, "0");
-                }
             }
         });
 

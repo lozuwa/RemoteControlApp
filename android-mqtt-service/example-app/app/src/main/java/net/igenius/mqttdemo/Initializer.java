@@ -22,7 +22,7 @@ import java.util.UUID;
 public class Initializer extends Application {
 
     /** MQTT Variables */
-    public String BROKER = "tcp://192.168.0.105:1883";
+    public String BROKER = "tcp://192.168.0.103:1883";
     public String username = "pfm";
     public String password = "161154029";
     public String clientId = UUID.randomUUID().toString();
