@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Oct 25 11:11:14 BOT 2017
+#Wed Oct 25 18:31:46 BOT 2017
 210.set=ANDROID_RESOURCE
 282.file=C\:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\resources-debug.ap_\\res\\color\\abc_tint_edittext.xml
 14.set=ANDROID_RESOURCE

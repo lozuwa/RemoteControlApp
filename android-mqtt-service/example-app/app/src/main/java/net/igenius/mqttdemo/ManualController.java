@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Vibrator;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -41,20 +42,6 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
     public Vibrator vibrator;
 
     /*** Constant strings */
-    /** MQTT Topics */
-    public static final String X_RIGHT_TOPIC = "/xr";
-    public static final String X_LEFT_TOPIC = "/xl";
-    public static final String Y_UP_TOPIC = "/yu";
-    public static final String Y_DOWN_TOPIC = "/yd";
-    public static final String Z_UP_TOPIC = "/zu";
-    public static final String Z_DOWN_TOPIC = "/zd";
-    public static final String LED_TOPIC = "/led";
-    public static final String AUTOFOCUS_APP_TOPIC = "/autofocusApp";
-    public static final String CAMERA_APP_TOPIC = "/cameraApp";
-    public static final String EXTRA_ACTIONS_TOPIC = "/extra";
-    /** Deprecated */
-    public static final String MOVEFIELDX_TOPIC = "/movefieldy";
-    public static final String MOVEFIELDY_TOPIC = "/movefieldx";
     /** Holder variables */
     public static String CHOSEN_PARASITE = "";
 
@@ -113,11 +100,11 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    publishMessage(X_LEFT_TOPIC, "1");
+                    publishMessage(Initializer.MICROSCOPE_TOPIC, Initializer.MOVE_X_LEFT_PROCESS_START);
                     left.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
-                    publishMessage(X_LEFT_TOPIC, "0");
+                    publishMessage(Initializer.MICROSCOPE_TOPIC, Initializer.MOVE_X_LEFT_PROCESS_END);
                     left.setBackground(getResources().getDrawable(R.drawable.curvebutton));
                 }
                 else{
@@ -131,11 +118,11 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    publishMessage(X_RIGHT_TOPIC, "1");
+                    publishMessage(Initializer.MICROSCOPE_TOPIC, Initializer.MOVE_X_RIGHT_PROCESS_START);
                     right.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
-                    publishMessage(X_RIGHT_TOPIC, "0");
+                    publishMessage(Initializer.MICROSCOPE_TOPIC, Initializer.MOVE_X_RIGHT_PROCESS_END);
                     right.setBackground(getResources().getDrawable(R.drawable.curvebutton));
                 }
                 else{
@@ -149,15 +136,12 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    publishMessage(Y_UP_TOPIC, "1");
+                    publishMessage(Initializer.MICROSCOPE_TOPIC, Initializer.MOVE_Y_UP_PROCESS_START);
                     up.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
-                    publishMessage(Y_UP_TOPIC, "0");
+                    publishMessage(Initializer.MICROSCOPE_TOPIC, Initializer.MOVE_Y_UP_PROCESS_END);
                     up.setBackground(getResources().getDrawable(R.drawable.curvebutton));
-                }
-                else{
-
                 }
                 return true;
             }
@@ -167,15 +151,12 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    publishMessage(Y_DOWN_TOPIC, "1");
+                    publishMessage(Initializer.MICROSCOPE_TOPIC, Initializer.MOVE_Y_DOWN_PROCESS_START);
                     down.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 }
                 else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
-                    publishMessage(Y_DOWN_TOPIC, "0");
+                    publishMessage(Initializer.MICROSCOPE_TOPIC, Initializer.MOVE_Y_DOWN_PROCESS_END);
                     down.setBackground(getResources().getDrawable(R.drawable.curvebutton));
-                }
-                else{
-
                 }
                 return true;
             }
@@ -185,12 +166,10 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    String payload = "1";
-                    publishMessage(Z_UP_TOPIC, payload);
+                    publishMessage(Initializer.MICROSCOPE_TOPIC, Initializer.MOVE_Z_UP_PROCESS_START);
                     zUp.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                    String payload = "0";
-                    publishMessage(Z_UP_TOPIC, payload);
+                    publishMessage(Initializer.MICROSCOPE_TOPIC, Initializer.MOVE_Z_UP_PROCESS_END);
                     zUp.setBackground(getResources().getDrawable(R.drawable.curvebutton));
                 }
                 return true;
@@ -201,12 +180,10 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    String payload = "1";
-                    publishMessage(Z_DOWN_TOPIC, payload);
+                    publishMessage(Initializer.MICROSCOPE_TOPIC, Initializer.MOVE_Z_DOWN_PROCESS_START);
                     zDown.setBackground(getResources().getDrawable(R.drawable.curvebuttonpressed));
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL) {
-                    String payload = "0";
-                    publishMessage(Z_DOWN_TOPIC, payload);
+                    publishMessage(Initializer.MICROSCOPE_TOPIC, Initializer.MOVE_Z_DOWN_PROCESS_END);
                     zDown.setBackground(getResources().getDrawable(R.drawable.curvebutton));
                 }
                 return true;
@@ -222,8 +199,7 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
                         vibrator.vibrate(500);
                     }
                     else {
-                        String payload = "takePictureRemoteController;" + CHOSEN_PARASITE;
-                        publishMessage(CAMERA_APP_TOPIC, payload);
+                        publishMessage(Initializer.CAMERA_APP_TOPIC, Initializer.TAKE_PICTURE_FROM_REMOTE_CONTROLLER + CHOSEN_PARASITE);
                         picButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
                     }
                 }
@@ -238,8 +214,7 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    String payload = "requestService;autofocus";
-                    publishMessage(AUTOFOCUS_APP_TOPIC, payload);
+                    publishMessage(Initializer.CAMERA_APP_TOPIC, Initializer.REQUEST_SERVICE_AUTOFOCUS);
                     autofocusButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
                 } else {
                     autofocusButton.setBackground(getResources().getDrawable(R.drawable.camera));
@@ -252,8 +227,7 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    String payload = "home;home";
-                    publishMessage(EXTRA_ACTIONS_TOPIC, payload);
+                    publishMessage(Initializer.MACROS_TOPIC, Initializer.STAGE_RESTART_HOME);
                     homeButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
                 } else {
                     homeButton.setBackground(getResources().getDrawable(R.drawable.camera));
@@ -267,7 +241,7 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
                     String payload = "exit;exit";
-                    publishMessage(CAMERA_APP_TOPIC, payload);
+                    publishMessage(Initializer.CAMERA_APP_TOPIC, Initializer.EXIT_ACTIVITY_CREATE_PATIENT);
                     exitButton.setBackground(getResources().getDrawable(R.drawable.camerapressed));
                 } else {
                     exitButton.setBackground(getResources().getDrawable(R.drawable.camera));
@@ -326,6 +300,8 @@ public class ManualController extends AppCompatActivity  implements AdapterView.
         @Override
         public void onMessageArrived(Context context, String topic,
                                      byte[] payload) {
+            String TAG = "ManualController:: ";
+            Log.i(TAG, new String(payload));
             // called when a new message arrives on any topic
         }
 

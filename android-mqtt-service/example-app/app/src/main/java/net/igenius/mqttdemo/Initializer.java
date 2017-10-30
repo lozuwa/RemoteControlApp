@@ -21,65 +21,62 @@ import java.util.UUID;
 
 public class Initializer extends Application {
 
-    /** MQTT Variables */
+    /**
+     * MQTT Variables
+     * */
     public String BROKER = "tcp://192.168.0.103:1883";
     public String username = "pfm";
     public String password = "161154029";
     public String clientId = UUID.randomUUID().toString();
-    public String publishTopic = "/random";
-    public String subscribeTopic = "/random_topic_with_no_intention";
     public int qos = 2;
 
-    /** MQTT Receiver */
-    private MQTTServiceReceiver receiver = new MQTTServiceReceiver() {
+    /**
+     * MQTT Topics
+     * */
+    static public String MICROSCOPE_TOPIC = "/microscope";
+    static public String CAMERA_APP_TOPIC = "/cameraApp";
+    static public String AUTOFOCUS_APP_TOPIC = "/autofocusApp";
+    static public String REMOTE_CONTROLLER_TOPIC = "/remoteController";
+    static public String MACROS_TOPIC = "/macros";
 
-        private static final String TAG = "Receiver";
+    /**
+     * MQTT Messages
+     * */
+    // /microscope
+    public static String MOVE_X_RIGHT_FIELD = "move;x;right;field;1";
+    public static String MOVE_X_LEFT_FIELD = "move;x;left;field;1";
+    public static String MOVE_X_RIGHT_PROCESS_START = "move;x;right;process;1";
+    public static String MOVE_X_LEFT_PROCESS_START = "move;x;left;process;1";
+    public static String MOVE_X_RIGHT_PROCESS_END = "move;x;right;process;0";
+    public static String MOVE_X_LEFT_PROCESS_END = "move;x;left;process;0";
 
-        @Override
-        public void onSubscriptionSuccessful(Context context, String requestId, String topic) {
-            Log.e(TAG, "Subscribed to " + topic);
+    public static String MOVE_Y_UP_FIELD = "move;y;up;field;1";
+    public static String MOVE_Y_DOWN_FIELD = "move;y;down;field;1";
+    public static String MOVE_Y_UP_PROCESS_START = "move;y;up;process;1";
+    public static String MOVE_Y_DOWN_PROCESS_START = "move;y;down;process;1";
+    public static String MOVE_Y_UP_PROCESS_END = "move;y;up;process;0";
+    public static String MOVE_Y_DOWN_PROCESS_END = "move;y;down;process;0";
 
-            JsonObject request = new JsonObject();
-            request.addProperty("question", "best time to post");
-            request.addProperty("lang", "en");
-            request.addProperty("request_uid", "testAndroid/" + new Date().getTime());
+    public static String MOVE_Z_UP_FIELD = "move;z;up;field;1";
+    public static String MOVE_Z_DOWN_FIELD = "move;z;down;field;1";
+    public static String MOVE_Z_UP_PROCESS_START = "move;z;up;process;1";
+    public static String MOVE_Z_DOWN_PROCESS_START = "move;z;down;process;1";
+    public static String MOVE_Z_UP_PROCESS_END = "move;z;up;process;0";
+    public static String MOVE_Z_DOWN_PROCESS_END = "move;z;down;process;0";
 
-            byte[] payload = new Gson().toJson(request).getBytes();
+    public static String HOME_X = "home;x;None;None;None";
+    public static String HOME_Y = "home;y;None;None;None";
+    public static String HOME_Z_TOP = "home;z;top;None;None";
+    public static String HOME_Z_BOTTOM = "home;z;bottom;None;None";
 
-            MQTTServiceCommand.publish(context, "/advisor/topic", payload);
-        }
+    // /macros
+    public static String STAGE_RESTART_HOME = "stage;restart;home;None;None";
 
-        @Override
-        public void onSubscriptionError(Context context, String requestId, String topic, Exception exception) {
-            Log.e(TAG, "Can't subscribe to " + topic, exception);
-        }
+    // /cameraApp
+    public static String TAKE_PICTURE_FROM_REMOTE_CONTROLLER = "takePictureRemoteController;None;None;None;";
+    public static String EXIT_ACTIVITY_CREATE_PATIENT = "exit;ManualController;CreatePatient;None;None";
 
-        @Override
-        public void onPublishSuccessful(Context context, String requestId, String topic) {
-            Log.e(TAG, "Successfully published on topic: " + topic);
-        }
-
-        @Override
-        public void onMessageArrived(Context context, String topic, byte[] payload) {
-            Log.e(TAG, "New message on " + topic + ":  " + new String(payload));
-        }
-
-        @Override
-        public void onConnectionSuccessful(Context context, String requestId) {
-            Log.e(TAG, "Connected!");
-        }
-
-        @Override
-        public void onException(Context context, String requestId, Exception exception) {
-            exception.printStackTrace();
-            Log.e(TAG, requestId + " exception");
-        }
-
-        @Override
-        public void onConnectionStatus(Context context, boolean connected) {
-
-        }
-    };
+    public static String REQUEST_SERVICE_AUTOFOCUS = "requestService;autofocus;ManualController;None;None";
 
     @Override
     public void onCreate(){
@@ -98,7 +95,7 @@ public class Initializer extends Application {
                                                 password,
                                                 qos,
                                                 true,
-                                                subscribeTopic);
+                                                REMOTE_CONTROLLER_TOPIC);
     }
 
 }
