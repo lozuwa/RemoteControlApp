@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\remoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\design_layout_snackbar.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\layout-sw600dp-v13\\design_layout_snackbar.xml"
+    },
+    {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\layout-sw600dp-v13\\design_layout_snackbar.xml",
         "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\layout-sw600dp-v13\\design_layout_snackbar.xml"
     }

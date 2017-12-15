@@ -1,5 +1,9 @@
 [
     {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\remoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\ic_launcher.png",
+        "source": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\remoteControllerApp\\android-mqtt-service\\example-app\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
         "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi\\ic_launcher.png",
         "source": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
     }
