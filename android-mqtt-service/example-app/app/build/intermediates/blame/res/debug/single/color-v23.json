@@ -1,46 +1,90 @@
 [
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_color_highlight_material.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_color_highlight_material.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_color_highlight_material.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_color_highlight_material.xml"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_seek_thumb.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_seek_thumb.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_seek_thumb.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_seek_thumb.xml"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\design_tint_password_toggle.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\color-v23\\design_tint_password_toggle.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/color-v23/abc_color_highlight_material.xml",
+        "source": "/root/.android/build-cache/a8345b00215fce215cf9d20577803ecacefd04e5/output/res/color-v23/abc_color_highlight_material.xml"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_btn_colored_borderless_text_material.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_btn_colored_borderless_text_material.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_track.xml",
+        "source": "/root/.android/build-cache/a8345b00215fce215cf9d20577803ecacefd04e5/output/res/color-v23/abc_tint_switch_track.xml"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_default.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_default.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_thumb.xml",
+        "source": "/root/.android/build-cache/a8345b00215fce215cf9d20577803ecacefd04e5/output/res/color-v23/abc_tint_switch_thumb.xml"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_switch_track.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_switch_track.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/color-v23/abc_tint_btn_checkable.xml",
+        "source": "/root/.android/build-cache/a8345b00215fce215cf9d20577803ecacefd04e5/output/res/color-v23/abc_tint_btn_checkable.xml"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_spinner.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_spinner.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/color-v23/abc_tint_spinner.xml",
+        "source": "/root/.android/build-cache/a8345b00215fce215cf9d20577803ecacefd04e5/output/res/color-v23/abc_tint_spinner.xml"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_switch_thumb.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_switch_thumb.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\design_tint_password_toggle.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\color-v23\\design_tint_password_toggle.xml"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_btn_colored_text_material.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_btn_colored_text_material.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/color-v23/design_tint_password_toggle.xml",
+        "source": "/root/.android/build-cache/26b5ca1d70be2f421d5eef37efe217bfc2fff929/output/res/color-v23/design_tint_password_toggle.xml"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_edittext.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_edittext.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_btn_colored_borderless_text_material.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_btn_colored_borderless_text_material.xml"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_btn_checkable.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_btn_checkable.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/color-v23/abc_btn_colored_text_material.xml",
+        "source": "/root/.android/build-cache/a8345b00215fce215cf9d20577803ecacefd04e5/output/res/color-v23/abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_default.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_default.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/color-v23/abc_tint_edittext.xml",
+        "source": "/root/.android/build-cache/a8345b00215fce215cf9d20577803ecacefd04e5/output/res/color-v23/abc_tint_edittext.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_switch_track.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_spinner.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_spinner.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/color-v23/abc_btn_colored_borderless_text_material.xml",
+        "source": "/root/.android/build-cache/a8345b00215fce215cf9d20577803ecacefd04e5/output/res/color-v23/abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/color-v23/abc_tint_seek_thumb.xml",
+        "source": "/root/.android/build-cache/a8345b00215fce215cf9d20577803ecacefd04e5/output/res/color-v23/abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/color-v23/abc_tint_default.xml",
+        "source": "/root/.android/build-cache/a8345b00215fce215cf9d20577803ecacefd04e5/output/res/color-v23/abc_tint_default.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_switch_thumb.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_switch_thumb.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_btn_colored_text_material.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_edittext.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_edittext.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\color-v23\\abc_tint_btn_checkable.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\color-v23\\abc_tint_btn_checkable.xml"
     }
 ]

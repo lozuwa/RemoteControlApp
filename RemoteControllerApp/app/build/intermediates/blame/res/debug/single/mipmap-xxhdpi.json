@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/RemoteControllerApp/app/build/intermediates/res/merged/debug/mipmap-xxhdpi/ic_launcher.png",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/RemoteControllerApp/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/RemoteControllerApp/app/build/intermediates/res/merged/debug/mipmap-xxhdpi/ic_launcher_round.png",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/RemoteControllerApp/app/src/main/res/mipmap-xxhdpi/ic_launcher_round.png"
+    }
+]

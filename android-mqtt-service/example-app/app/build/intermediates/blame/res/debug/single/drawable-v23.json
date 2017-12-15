@@ -1,6 +1,10 @@
 [
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v23\\abc_control_background_material.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-v23\\abc_control_background_material.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v23\\abc_control_background_material.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-v23\\abc_control_background_material.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/drawable-v23/abc_control_background_material.xml",
+        "source": "/root/.android/build-cache/a8345b00215fce215cf9d20577803ecacefd04e5/output/res/drawable-v23/abc_control_background_material.xml"
     }
 ]

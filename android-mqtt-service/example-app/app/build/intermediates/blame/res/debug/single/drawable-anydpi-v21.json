@@ -1,10 +1,18 @@
 [
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\drawable-anydpi-v21\\design_ic_visibility.xml"
     },
     {
-        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility_off.xml",
-        "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\drawable-anydpi-v21\\design_ic_visibility_off.xml"
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/drawable-anydpi-v21/design_ic_visibility.xml",
+        "source": "/root/.android/build-cache/26b5ca1d70be2f421d5eef37efe217bfc2fff929/output/res/drawable-anydpi-v21/design_ic_visibility.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi-v21\\design_ic_visibility_off.xml",
+        "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\drawable-anydpi-v21\\design_ic_visibility_off.xml"
+    },
+    {
+        "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/drawable-anydpi-v21/design_ic_visibility_off.xml",
+        "source": "/root/.android/build-cache/26b5ca1d70be2f421d5eef37efe217bfc2fff929/output/res/drawable-anydpi-v21/design_ic_visibility_off.xml"
     }
 ]
