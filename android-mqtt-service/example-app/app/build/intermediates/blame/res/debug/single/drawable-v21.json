@@ -1,23 +1,69 @@
 [
     {
+<<<<<<< HEAD
         "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/drawable-v21/avd_hide_password.xml",
         "source": "/root/.android/build-cache/26b5ca1d70be2f421d5eef37efe217bfc2fff929/output/res/drawable-v21/avd_hide_password.xml"
     },
     {
         "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_btn_colored_material.xml",
         "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-v21\\abc_btn_colored_material.xml"
+=======
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\remoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\design_bottom_navigation_item_background.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\drawable-v21\\design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\remoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-v21\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\remoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\avd_show_password.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\drawable-v21\\avd_show_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\remoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\avd_hide_password.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\drawable-v21\\avd_hide_password.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\design_password_eye.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\drawable-v21\\design_password_eye.xml"
+>>>>>>> 200a212732082047281df98fc4acfe32c5dd650e
     },
     {
         "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/drawable-v21/design_bottom_navigation_item_background.xml",
         "source": "/root/.android/build-cache/26b5ca1d70be2f421d5eef37efe217bfc2fff929/output/res/drawable-v21/design_bottom_navigation_item_background.xml"
     },
     {
+<<<<<<< HEAD
         "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/res/merged/debug/drawable-v21/design_password_eye.xml",
         "source": "/root/.android/build-cache/26b5ca1d70be2f421d5eef37efe217bfc2fff929/output/res/drawable-v21/design_password_eye.xml"
     },
     {
         "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\design_password_eye.xml",
         "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\drawable-v21\\design_password_eye.xml"
+=======
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\remoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\design_password_eye.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\drawable-v21\\design_password_eye.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\remoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_btn_colored_material.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-v21\\abc_btn_colored_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\remoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\notification_action_background.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-v21\\notification_action_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\notification_action_background.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-v21\\notification_action_background.xml"
+>>>>>>> 200a212732082047281df98fc4acfe32c5dd650e
     },
     {
         "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\avd_hide_password.xml",
@@ -28,6 +74,7 @@
         "source": "/root/.android/build-cache/a8345b00215fce215cf9d20577803ecacefd04e5/output/res/drawable-v21/abc_edit_text_material.xml"
     },
     {
+<<<<<<< HEAD
         "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_action_bar_item_background_material.xml",
         "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-v21\\abc_action_bar_item_background_material.xml"
     },
@@ -62,5 +109,13 @@
     {
         "merged": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\design_bottom_navigation_item_background.xml",
         "source": "/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\drawable-v21\\design_bottom_navigation_item_background.xml"
+=======
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\RemoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\design_bottom_navigation_item_background.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\45fd90854432d609aa121164ace330949cb09aaa\\output\\res\\drawable-v21\\design_bottom_navigation_item_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\HP\\Dropbox\\pfm\\Apps\\remoteControllerApp\\android-mqtt-service\\example-app\\app\\build\\intermediates\\res\\merged\\debug\\drawable-v21\\abc_edit_text_material.xml",
+        "source": "C:\\Users\\HP\\.android\\build-cache\\083a8984fad841e399d643a44454978bcea34344\\output\\res\\drawable-v21\\abc_edit_text_material.xml"
+>>>>>>> 200a212732082047281df98fc4acfe32c5dd650e
     }
 ]

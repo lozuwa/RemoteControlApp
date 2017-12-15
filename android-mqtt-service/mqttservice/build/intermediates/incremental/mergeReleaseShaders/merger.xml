@@ -1,2 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<<<<<<< HEAD
 <merger version="3"><dataSet config="main"><source path="/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/mqttservice/src/main/shaders"/></dataSet><dataSet config="release"><source path="/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/mqttservice/src/release/shaders"/></dataSet></merger>
+=======
+<merger version="3"><dataSet config="main"><source path="C:\Users\HP\Dropbox\pfm\Apps\remoteControllerApp\android-mqtt-service\mqttservice\src\main\shaders"/></dataSet><dataSet config="release"><source path="C:\Users\HP\Dropbox\pfm\Apps\remoteControllerApp\android-mqtt-service\mqttservice\src\release\shaders"/></dataSet></merger>
+>>>>>>> 200a212732082047281df98fc4acfe32c5dd650e

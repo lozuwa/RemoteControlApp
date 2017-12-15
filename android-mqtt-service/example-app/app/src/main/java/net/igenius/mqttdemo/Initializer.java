@@ -24,7 +24,7 @@ public class Initializer extends Application {
     /**
      * MQTT Variables
      * */
-    public String BROKER = "tcp://192.168.0.103:1883";
+    public String BROKER = "tcp://192.168.0.107:1883";
     public String username = "pfm";
     public String password = "161154029";
     public String clientId = UUID.randomUUID().toString();
@@ -33,11 +33,12 @@ public class Initializer extends Application {
     /**
      * MQTT Topics
      * */
-    static public String MICROSCOPE_TOPIC = "/microscope";
-    static public String CAMERA_APP_TOPIC = "/cameraApp";
-    static public String AUTOFOCUS_APP_TOPIC = "/autofocusApp";
-    static public String REMOTE_CONTROLLER_TOPIC = "/remoteController";
-    static public String MACROS_TOPIC = "/macros";
+    static public String PREFIX = "/40X/1";
+    static public String MICROSCOPE_TOPIC = "/microscope" + PREFIX;
+    static public String CAMERA_APP_TOPIC = "/cameraApp" + PREFIX;
+    static public String AUTOFOCUS_APP_TOPIC = "/autofocusApp" + PREFIX;
+    static public String REMOTE_CONTROLLER_TOPIC = "/remoteController" + PREFIX;
+    static public String MACROS_TOPIC = "/macros" + PREFIX;
 
     /**
      * MQTT Messages

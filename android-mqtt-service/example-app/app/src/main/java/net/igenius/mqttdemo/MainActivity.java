@@ -113,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
         automaticButton = (Button) findViewById(R.id.startAutomaticButton);
         patientEditText = (EditText) findViewById(R.id.PatientEditText);
         brokerEditText = (EditText) findViewById(R.id.BrokerEditText);
+        Initializer init = new Initializer();
+        init.PREFIX = "";
 
         /** Initial states */
 
