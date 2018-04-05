@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Spinner;
 import net.igenius.mqttservice.MQTTServiceCommand;
 import net.igenius.mqttservice.MQTTServiceReceiver;
 import net.igenius.mqttservice.MQTTService;
@@ -16,7 +15,7 @@ import net.igenius.mqttservice.MQTTServiceLogger;
 
 import java.io.UnsupportedEncodingException;
 import java.util.UUID;
-
+import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,6 +25,11 @@ public class MainActivity extends AppCompatActivity {
     private String password = "65478912";
     private String clientId = UUID.randomUUID().toString();
     private int qos = 2;
+
+    // Topics
+    public static final String STAGE_RESTART_HOME = "stage;restart;home;None;None";
+    public static final String REQUEST_SERVICE_AUTOFOCUS_MANUAL = "requestService;autofocus;ManualController;None;None";
+    public static final String TAKE_PICTURE_AUTOMATIC = "takePicture;None;None;None;";
 
     // UI elements
     // 3 DOF controllers
@@ -39,8 +43,6 @@ public class MainActivity extends AppCompatActivity {
     public ImageButton buttonExtra1;
     public ImageButton buttonExtra2;
     public ImageButton buttonExtra3;
-    public ImageButton buttonExtra4;
-
     // Vibrate service
     public Vibrator vibrator;
 
@@ -51,10 +53,9 @@ public class MainActivity extends AppCompatActivity {
     public static final String Y_DOWN_TOPIC = "/yd";
     public static final String Z_UP_TOPIC = "/zu";
     public static final String Z_DOWN_TOPIC = "/zd";
-    public static final String EXTRA_BUTTON_1_TOPIC = "/cameraApp";
-    public static final String EXTRA_BUTTON_2_TOPIC = "/macros";
+    public static final String EXTRA_BUTTON_1_TOPIC = "/macros";
+    public static final String EXTRA_BUTTON_2_TOPIC = "/autofocusApp";
     public static final String EXTRA_BUTTON_3_TOPIC = "/cameraApp";
-    public static final String EXTRA_BUTTON_4_TOPIC = "/cameraApp";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         buttonExtra1 = (ImageButton)findViewById(R.id.button_extra_1);
         buttonExtra2 = (ImageButton)findViewById(R.id.button_extra_2);
         buttonExtra3 = (ImageButton)findViewById(R.id.button_extra_3);
-        buttonExtra4 = (ImageButton)findViewById(R.id.button_extra_4);
         // Initial states
         buttonXRight.setBackground(getResources().getDrawable(R.drawable.notpressedbutton));
         buttonXLeft.setBackground(getResources().getDrawable(R.drawable.notpressedbutton));
@@ -169,31 +169,33 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Home
         buttonExtra1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                publishMessage(EXTRA_BUTTON_1_TOPIC, "1");
+                publishMessage(EXTRA_BUTTON_1_TOPIC, STAGE_RESTART_HOME);
             }
         });
 
+        // Autofocus
         buttonExtra2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                publishMessage(EXTRA_BUTTON_2_TOPIC, "1");
+                publishMessage(EXTRA_BUTTON_2_TOPIC, REQUEST_SERVICE_AUTOFOCUS_MANUAL);
             }
         });
 
+        // Take picture
         buttonExtra3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                publishMessage(EXTRA_BUTTON_3_TOPIC, "1");
-            }
-        });
-
-        buttonExtra4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                publishMessage(EXTRA_BUTTON_4_TOPIC, "1");
+                Random rand = new Random();
+                String randomCode = "";
+                for (int i = 0; i < 5;){
+                    int n = rand.nextInt(50) + 1;
+                    randomCode += String.valueOf(n);
+                }
+                publishMessage(EXTRA_BUTTON_3_TOPIC, TAKE_PICTURE_AUTOMATIC + randomCode);
             }
         });
 
