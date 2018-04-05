@@ -1,4 +1,0 @@
-#Fri Dec 15 17:30:24 EST 2017
-base.0=/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_6
-renamed.0=classes.dex
-file.0=/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_6/classes.dex

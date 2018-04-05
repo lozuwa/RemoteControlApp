@@ -1,7 +1,0 @@
-#Tue Feb 27 16:28:35 EST 2018
-base.0=/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_16b212aae37a52ff0f490079eeab6c7660ad53a3
-renamed.1=classes2.dex
-renamed.0=classes.dex
-file.1=/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_744af6eade23d432e43fad63c2c68088d7ebf41a/classes.dex
-base.1=/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_744af6eade23d432e43fad63c2c68088d7ebf41a
-file.0=/home/pfm/Documents/pfm/apps/remote_controller/android-mqtt-service/example-app/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_16b212aae37a52ff0f490079eeab6c7660ad53a3/classes.dex

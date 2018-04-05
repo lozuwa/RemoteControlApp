@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="rodrigoloza.mqttremotecontroller.MainActivity">
+
+    <ImageButton
+        android:id="@+id/button_y_up"
+        android:layout_width="0dp"
+        android:layout_height="105dp"
+        android:src="@drawable/ic_arrow_upward_black_24dp"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/button_y_down"
+        app:layout_constraintRight_toRightOf="@+id/button_y_down"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="22dp"
+        app:layout_constraintLeft_toLeftOf="@+id/button_y_down"
+        app:layout_constraintHorizontal_bias="1.0" />
+
+    <ImageButton
+        android:id="@+id/button_y_down"
+        android:layout_width="100dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_arrow_downward_black_24dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="165dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_z_down"
+        android:layout_marginLeft="165dp"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <ImageButton
+        android:id="@+id/button_x_left"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_arrow_back_black_24dp"
+        app:layout_constraintRight_toLeftOf="@+id/button_y_down"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="15dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/button_y_up"
+        android:layout_marginRight="15dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/button_x_right"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/ic_arrow_forward_black_24dp"
+        app:layout_constraintRight_toLeftOf="@+id/button_z_up"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        android:layout_marginStart="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginEnd="13dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintTop_toTopOf="@+id/button_z_up"
+        app:layout_constraintLeft_toRightOf="@+id/button_y_down"
+        android:layout_marginLeft="14dp"
+        android:layout_marginRight="13dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/button_z_up"
+        android:layout_width="150dp"
+        android:layout_height="105dp"
+        android:src="@drawable/ic_arrow_upward_black_24dp"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/button_z_down"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="0dp" />
+
+    <ImageButton
+        android:id="@+id/button_z_down"
+        android:layout_width="0dp"
+        android:layout_height="105dp"
+        android:src="@drawable/ic_arrow_downward_black_24dp"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/button_z_up"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="@+id/button_z_up" />
+
+    <ImageButton
+        android:id="@+id/button_extra_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_placeholder_24dp"
+        app:layout_constraintEnd_toStartOf="@+id/button_extra_2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/button_extra_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_placeholder_24dp"
+        app:layout_constraintEnd_toStartOf="@+id/button_extra_3"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/button_extra_3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_placeholder_24dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_z_up"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/button_extra_4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="28dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_placeholder_24dp"
+        app:layout_constraintEnd_toStartOf="@+id/button_extra_1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

@@ -1,7 +1,10 @@
-# RemoteControlApp
-* A remote control application designed to interact with a digital microscope. The app features a mqtt connection to control specific configured hardware and the camera of another smartphone that uses the customed app (details in the README). 
+# Remote control application
+<p>A remote controller that uses mqtt. It has buttons to move an actuator that is able to move in three degrees of freedom (X,Y,Z). It also has three buttons and a spinner that allow extra features. </p>
+<p>It can be used in a variety of applications. For example, in the branch microscope_remote_controller this app is used to move an automated microscope.</p>
 
 # How do I setup?
 * Download or clone project. 
 * Build gradle
-* Install the application 
+* Define your mqtt topics for each button
+* Add material design to your buttons if desired
+* Compile the project in an Android phone
