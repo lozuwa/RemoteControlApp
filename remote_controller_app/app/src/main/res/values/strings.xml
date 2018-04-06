@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MQTTRemoteController</string>
+    <string name="ok">Ok</string>
+    <string name="internet_unavailable">Unavailable internet.</string>
+    <string name="internet_access_required">Give permission to internet.</string>
+    <string name="internet_permission_granted">Internet permission granted.</string>
+    <string name="internet_permission_denied">Internet permission not granted.</string>
 </resources>

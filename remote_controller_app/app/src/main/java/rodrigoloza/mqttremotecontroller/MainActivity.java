@@ -1,10 +1,17 @@
 package rodrigoloza.mqttremotecontroller;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
+import android.media.Image;
 import android.os.Vibrator;
+import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -20,16 +27,32 @@ import java.util.Random;
 public class MainActivity extends AppCompatActivity {
 
     // Constant variables
-    private String broker = "tcp://192.168.0.108:1883";
+    private String broker = "tcp://192.168.0.18:1883";
     private String username = "rodrigoloza";
     private String password = "65478912";
     private String clientId = UUID.randomUUID().toString();
     private int qos = 2;
 
-    // Topics
+    // Topics and messages
+    public static final String CAMERA_APP_TOPIC = "/cameraApp";
+    public static final String MICROSCOPE_TOPIC = "/microscope";
+
     public static final String STAGE_RESTART_HOME = "stage;restart;home;None;None";
     public static final String REQUEST_SERVICE_AUTOFOCUS_MANUAL = "requestService;autofocus;ManualController;None;None";
     public static final String TAKE_PICTURE_AUTOMATIC = "takePicture;None;None;None;";
+
+    public static final String MOVE_X_RIGHT_1 = "move;x;right;process;1";
+    public static final String MOVE_X_RIGHT_0 = "move;x;right;process;0";
+    public static final String MOVE_X_LEFT_1 = "move;x;left;process;1";
+    public static final String MOVE_X_LEFT_0 = "move;x;left;process;0";
+    public static final String MOVE_Y_UP_1 = "move;y;up;process;1";
+    public static final String MOVE_Y_UP_0 = "move;y;up;process;0";
+    public static final String MOVE_Y_DOWN_1 = "move;y;down;process;1";
+    public static final String MOVE_Y_DOWN_0 = "move;y;down;process;0";
+    public static final String MOVE_Z_UP_1 = "move;z;up;process;1";
+    public static final String MOVE_Z_UP_0 = "move;z;up;process;0";
+    public static final String MOVE_Z_DOWN_1 = "move;z;down;process;1";
+    public static final String MOVE_Z_DOWN_0 = "move;z;down;process;0";
 
     // UI elements
     // 3 DOF controllers
@@ -43,16 +66,11 @@ public class MainActivity extends AppCompatActivity {
     public ImageButton buttonExtra1;
     public ImageButton buttonExtra2;
     public ImageButton buttonExtra3;
+    public ImageButton buttonExtra4;
     // Vibrate service
     public Vibrator vibrator;
 
     // MQTT Topics
-    public static final String X_RIGHT_TOPIC = "/xr";
-    public static final String X_LEFT_TOPIC = "/xl";
-    public static final String Y_UP_TOPIC = "/yu";
-    public static final String Y_DOWN_TOPIC = "/yd";
-    public static final String Z_UP_TOPIC = "/zu";
-    public static final String Z_DOWN_TOPIC = "/zd";
     public static final String EXTRA_BUTTON_1_TOPIC = "/macros";
     public static final String EXTRA_BUTTON_2_TOPIC = "/autofocusApp";
     public static final String EXTRA_BUTTON_3_TOPIC = "/cameraApp";
@@ -77,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         buttonExtra1 = (ImageButton)findViewById(R.id.button_extra_1);
         buttonExtra2 = (ImageButton)findViewById(R.id.button_extra_2);
         buttonExtra3 = (ImageButton)findViewById(R.id.button_extra_3);
+        buttonExtra4 = (ImageButton)findViewById(R.id.button_extra_4);
         // Initial states
         buttonXRight.setBackground(getResources().getDrawable(R.drawable.notpressedbutton));
         buttonXLeft.setBackground(getResources().getDrawable(R.drawable.notpressedbutton));
@@ -89,10 +108,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    publishMessage(X_RIGHT_TOPIC, "1");
+                    publishMessage(MICROSCOPE_TOPIC, MOVE_X_RIGHT_1);
                     buttonXRight.setBackground(getResources().getDrawable(R.drawable.pressedbutton));
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
-                    publishMessage(X_RIGHT_TOPIC, "0");
+                    publishMessage(MICROSCOPE_TOPIC, MOVE_X_RIGHT_0);
                     buttonXRight.setBackground(getResources().getDrawable(R.drawable.notpressedbutton));
                 }
                 return true;
@@ -103,10 +122,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    publishMessage(X_LEFT_TOPIC, "1");
+                    publishMessage(MICROSCOPE_TOPIC, MOVE_X_LEFT_1);
                     buttonXLeft.setBackground(getResources().getDrawable(R.drawable.pressedbutton));
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
-                    publishMessage(X_LEFT_TOPIC, "0");
+                    publishMessage(MICROSCOPE_TOPIC, MOVE_X_LEFT_0);
                     buttonXLeft.setBackground(getResources().getDrawable(R.drawable.notpressedbutton));
                 }
                 return true;
@@ -117,10 +136,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    publishMessage(Y_UP_TOPIC, "1");
+                    publishMessage(MICROSCOPE_TOPIC, MOVE_Y_UP_1);
                     buttonYUp.setBackground(getResources().getDrawable(R.drawable.pressedbutton));
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
-                    publishMessage(Y_UP_TOPIC, "0");
+                    publishMessage(MICROSCOPE_TOPIC, MOVE_Y_UP_0);
                     buttonYUp.setBackground(getResources().getDrawable(R.drawable.notpressedbutton));
                 }
                 return true;
@@ -131,10 +150,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    publishMessage(Y_DOWN_TOPIC, "1");
+                    publishMessage(MICROSCOPE_TOPIC, MOVE_Y_DOWN_1);
                     buttonYDown.setBackground(getResources().getDrawable(R.drawable.pressedbutton));
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
-                    publishMessage(Y_DOWN_TOPIC, "0");
+                    publishMessage(MICROSCOPE_TOPIC, MOVE_Y_DOWN_0);
                     buttonYDown.setBackground(getResources().getDrawable(R.drawable.notpressedbutton));
                 }
                 return true;
@@ -145,10 +164,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    publishMessage(Z_UP_TOPIC, "1");
+                    publishMessage(MICROSCOPE_TOPIC, MOVE_Z_UP_1);
                     buttonZUp.setBackground(getResources().getDrawable(R.drawable.pressedbutton));
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
-                    publishMessage(Z_UP_TOPIC, "0");
+                    publishMessage(MICROSCOPE_TOPIC, MOVE_Z_UP_0);
                     buttonZUp.setBackground(getResources().getDrawable(R.drawable.notpressedbutton));
                 }
                 return true;
@@ -159,10 +178,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event){
                 if (event.getAction() == MotionEvent.ACTION_DOWN){
-                    publishMessage(Z_DOWN_TOPIC, "1");
+                    publishMessage(MICROSCOPE_TOPIC, MOVE_Z_DOWN_1);
                     buttonZDown.setBackground(getResources().getDrawable(R.drawable.pressedbutton));
                 } else if (event.getAction() == MotionEvent.ACTION_UP || event.getAction() == MotionEvent.ACTION_CANCEL){
-                    publishMessage(Z_DOWN_TOPIC, "0");
+                    publishMessage(MICROSCOPE_TOPIC, MOVE_Z_DOWN_0);
                     buttonZDown.setBackground(getResources().getDrawable(R.drawable.notpressedbutton));
                 }
                 return true;
@@ -191,11 +210,19 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Random rand = new Random();
                 String randomCode = "";
-                for (int i = 0; i < 5;){
+                for (int i = 0; i < 5; i++){
                     int n = rand.nextInt(50) + 1;
                     randomCode += String.valueOf(n);
                 }
                 publishMessage(EXTRA_BUTTON_3_TOPIC, TAKE_PICTURE_AUTOMATIC + randomCode);
+            }
+        });
+
+        // Reconnect mqtt
+        buttonExtra4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                connectMQTT();
             }
         });
 
@@ -278,7 +305,8 @@ public class MainActivity extends AppCompatActivity {
                                                 username,
                                                 password,
                                                 qos,
-                                                true);
+                                                true
+                                                );
     }
 
 }
